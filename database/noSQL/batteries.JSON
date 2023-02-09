@@ -1,0 +1,26 @@
+[
+    {
+        "id": "B1",
+        "Name": "PearlEXX705NBR",
+        "Image": "../../img/batteries/PearlEXX705NBR.png",
+        "Details": "",
+        "Price": "",
+        "Stock": "5"
+    },
+    {
+        "id": "B2",
+        "Name": "Startone",
+        "Image": "../../img/batteries/Startone.png",
+        "Details": "",
+        "Price": "",
+        "Stock": "5"
+    },
+    {
+        "id": "B3",
+        "Name": "YamahaRYDEEN",
+        "Image": "../../img/batteries/YamahaRYDEEN.png",
+        "Details": "",
+        "Price": "",
+        "Stock": "5"
+    }
+]

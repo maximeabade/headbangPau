@@ -26,26 +26,8 @@ $(document).ready(function(){
         }
     });
   });
-})
+});
 
 
-function guitaresTabVizu() {
-  el = document.getElementById("guitaresTab");
-  el.style.visibility = el.style.visibility == "visible" ? "hidden" : "visible";
-  console.log("guitaresTabVizu");
-}
 
 
-function microsTabVizu() {
-  el = document.getElementById("guitaresTab");
-  el.style.visibility = el.style.visibility == "visible" ? "hidden" : "visible";
-  console.log("microsTabVizu");
-
-}
-
-function batteriesTabVizu() {
-  el = document.getElementById("guitaresTab");
-  el.style.visibility = el.style.visibility == "visible" ? "hidden" : "visible";
-  console.log("batteriesTabVizu");
-
-}
