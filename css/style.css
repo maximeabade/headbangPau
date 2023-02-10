@@ -198,6 +198,10 @@ footer .glyphicon {
   .logo {
     font-size: 150px;
   }
+  .titleHead{
+    font-size: 50px;
+    color: white;
+  }
 }
 
 .material-symbols-outlined {
