@@ -19,7 +19,7 @@ a:hover {
 }
 html{
   zoom: 1.2;
-  scroll-behavior: smooth;
+  scroll-behavior: fast;
 }
 body {
   font: 400 15px Lato, sans-serif;
