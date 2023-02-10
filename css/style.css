@@ -212,4 +212,6 @@ footer .glyphicon {
     background-image: url("../img/navWall/hellfest-2022-headliners.png");
 }
 
-
+input textarea{
+  max-width: 80%;
+}
