@@ -290,3 +290,7 @@ function batterieChilds() {
         container.appendChild(div1);
     }
 }
+
+
+//now we want to push items to the cart, with quatity selectors, and write into the database
+//we need to create a cart object, and push it to the database
