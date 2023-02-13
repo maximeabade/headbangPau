@@ -155,6 +155,8 @@ function guitareChilds() {
         var guitare = guitaresTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
+            div1.setAttribute("style", "margin-bottom: 20px;");
+            div1.setAttribute("style", "border: none; color: black;");
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
@@ -201,6 +203,8 @@ function microChilds() {
         var micro = microsTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
+            div1.setAttribute("style", "margin-bottom: 20px;");
+            div1.setAttribute("style", "border: none; color: black;");
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
@@ -247,6 +251,8 @@ function batterieChilds() {
         var battery = batteriesTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
+            div1.setAttribute("style", "margin-bottom: 20px;");
+            div1.setAttribute("style", "border: none; color: black;");
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         

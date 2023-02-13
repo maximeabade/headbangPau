@@ -275,3 +275,8 @@ input textarea{
   background-position: center;
   background-attachment: fixed;
 }
+
+.modal-title{
+  font-size: 30px;
+  color:#000000;
+}
