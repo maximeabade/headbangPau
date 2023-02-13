@@ -43,160 +43,161 @@
       </div>
     </nav>
     
-    <div id="myPage" class="jumbotron text-center headingPic" style="background-color: black;">
-        <h3 style="color: rgba(0, 0, 0, 0)">Coucou, je maintiens de la distance</h3>
-        <h1 style="color: rgb(101, 0, 0); width:80%;" class:"titleHead" >HEADBANG PAU</h1><br>
-        <h2 style="color: rgb(62, 0, 0); right: 0">Votre équipement spécialisé ROCK</h2>
-    </div>
-
-
-    <!-- Container (About Section) -->
-    <div id="who" class="container-fluid ">
-        <div class="col-sm-12">
-            <h2>QUI SOMMES-NOUS?</h2>
-            <h3>
-                <p>Headbang Pau est une boutique spécialisée dans l'équipement de musique rock fraîchement implantée près de CY-Tech. Nous proposons des guitares, des batteries, des micros et bientôt d'autres accessoires pour musiciens de tout niveau.</p>
-                <p>Notre équipe est composée de musiciens professionnels qui vous conseilleront et vous guideront dans vos choix.</p>
-            </h3>
+    <div>
+        <div id="myPage" class="jumbotron text-center headingPic container-fluid" style="background-color: black;">
+            <h3 style="color: rgba(0, 0, 0, 0)">Coucou, je maintiens de la distance</h3>
+            <h1 style="color: rgb(255, 255, 255); width:80%;" class:"titleHead" >HEADBANG PAU</h1><br>
+            <h2 style="color: rgb(255, 255, 255); right: 0">Votre équipement spécialisé ROCK</h2>
         </div>
-    </div>
-    <br>        
 
 
-    <div id="whofor" class="container-fluid bg-iron">
-        <div class="col-sm-12">
-            <h2>POUR QUI?</h2><br>
-            <h3>
-                <p>Notre boutique est destinée à tous les musiciens, qu'ils soient débutants ou confirmés.</p>
-                <p>De l'apprentissage au concert on vous accompagne dans vos choix!</p>    
-            </h3>
+        <!-- Container (About Section) -->
+        <div id="who" class="container-fluid bg-rammstein" style="color:white">
+            <div class="col-sm-12">
+                <h2>QUI SOMMES-NOUS?</h2>
+                <h3>
+                    <p>Headbang Pau est une boutique spécialisée dans l'équipement de musique rock fraîchement implantée près de CY-Tech. Nous proposons des guitares, des batteries, des micros et bientôt d'autres accessoires pour musiciens de tout niveau.</p>
+                    <p>Notre équipe est composée de musiciens professionnels qui vous conseilleront et vous guideront dans vos choix.</p>
+                </h3>
+            </div>
         </div>
-    </div>
-    <br>
+        
+
+
+        <div id="whofor" class="container-fluid bg-iron" style="color:white">
+            <div class="col-sm-12">
+                <h2>POUR QUI?</h2><br>
+                <h3>
+                    <p>Notre boutique est destinée à tous les musiciens, qu'ils soient débutants ou confirmés.</p>
+                    <p>De l'apprentissage au concert on vous accompagne dans vos choix!</p>    
+                </h3>
+            </div>
+        </div>
+
+        
+
+        <div id="guitares" class="container-fluid bg-fooF" style="color:rgb(253, 253, 253)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>GUITARES</h2><br>
+                    <h3>Notre gamme de guitares est composée de 3 modèles exclusifs de nos marques certifiées. Nous vous proposons des guitares allant du niveau débutant à expert prêt à partir en tournée.</h3><br>
+                </div>
+                <!--BOUTON POUR DÉROULER LE TABLEAU CONTENANT LES IMAGES DES GUITARES, LEUR PRIX, LEURS DÉTAILS ET SPÉCIFICITÉS, ET UN BOUTON D AJOUT AU PANIER -->
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="guitareChilds()">VOIR LES GUITARES</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="myModalLabel"><strong>Nos guitares</strong></h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="guitaresContainer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     
 
-    <div id="guitares" class="container-fluid bg-fooF">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>GUITARES</h2><br>
-                <h3>Notre gamme de guitares est composée de 3 modèles exclusifs de nos marques certifiées. Nous vous proposons des guitares allant du niveau débutant à expert prêt à partir en tournée.</h3><br>
-            </div>
-            <!--BOUTON POUR DÉROULER LE TABLEAU CONTENANT LES IMAGES DES GUITARES, LEUR PRIX, LEURS DÉTAILS ET SPÉCIFICITÉS, ET UN BOUTON D AJOUT AU PANIER -->
-            <div class="col-sm-4">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal" onclick="guitareChilds()">VOIR LES GUITARES</button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title" id="myModalLabel"><strong>Nos guitares</strong></h1>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="guitaresContainer">
+        <div id="micros" class="container-fluid bg-metallica" style="color:white">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>MICROS</h2><br>
+                    <h3>Notre gamme de micros est composée de 3 modèles exclusifs de nos marques certifiées. Nous vous proposons des micros allant de l'apprenti recorder au chanteur prêt à partir en tournée.</h3><br>
+                </div>
+                <!--BOUTON POUR DÉROULER LE TABLEAU CONTENANT LES IMAGES DES GUITARES, LEUR PRIX, LEURS DÉTAILS ET SPÉCIFICITÉS, ET UN BOUTON D AJOUT AU PANIER -->
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalMic" onclick="microChilds()">VOIR LES MICROS</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModalMic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="myModalLabel"><strong>Nos micros</strong></h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="microsContainer"></div>
                             </div>
                         </div>
                     </div>
+
                 </div>
+                    
             </div>
         </div>
-    </div>
-  
 
-    <div id="micros" class="container-fluid bg-metallica">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>MICROS</h2><br>
-                <h3>Notre gamme de micros est composée de 3 modèles exclusifs de nos marques certifiées. Nous vous proposons des micros allant de l'apprenti recorder au chanteur prêt à partir en tournée.</h3><br>
-            </div>
-            <!--BOUTON POUR DÉROULER LE TABLEAU CONTENANT LES IMAGES DES GUITARES, LEUR PRIX, LEURS DÉTAILS ET SPÉCIFICITÉS, ET UN BOUTON D AJOUT AU PANIER -->
-            <div class="col-sm-4">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalMic" onclick="microChilds()">VOIR LES MICROS</button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModalMic" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title" id="myModalLabel"><strong>Nos micros</strong></h1>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+
+        <div id="batteries" class="container-fluid bg-simpleP" style="color:rgb(255, 255, 255)">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>BATTERIES</h2><br>
+                    <h3>Notre gamme de batteries est composée de 3 modèles exclusifs de nos marques certifiées. Nous vous proposons des batteries allant du niveau débutant à expert prêt à partir en tournée.</h3><br>
+                </div>
+                <!--BOUTON POUR DÉROULER LE TABLEAU CONTENANT LES IMAGES DES GUITARES, LEUR PRIX, LEURS DÉTAILS ET SPÉCIFICITÉS, ET UN BOUTON D AJOUT AU PANIER -->
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalBat" onclick="batterieChilds()" >VOIR LES BATTERIES</button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModalBat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title" id="myModalLabel"><strong>Nos batteries</strong></h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" id="batteriesContainer"></div>
                             </div>
-                            <div class="modal-body" id="microsContainer"></div>
                         </div>
                     </div>
-                </div>
 
+                </div>
+                    
             </div>
-                
+        </div>
+
+
+        <!-- Container (Contact Form) -->
+        <div id="formContainer" class="container-fluid bg-cobain" style="color: white">
+            <h1 id="contact">CONTACT</h1>
+            <h3>Date de contact: <input type="date" id="date" name="date" value="1999-31-12" min="2023-01-01" max="2024-12-31"></h3>
+            <h3>Nom: <input type="text" id="familyName" placeholder="Entrez votre nom"></h3>
+            <h3>Prénom: <input type="text" id="firstName" placeholder="Entrez votre prénom"></h3>
+            <h3>Email: <input type="text" id="requesterMailAddress" placeholder="jean.bombeur@gmail.com"></h3>    
+            <h3>
+                Genre:
+                <select id="genre">
+                    <option value="Madame">Madame</option>
+                    <option value="Monsieur">Monsieur</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </h3>    
+            <h3>Date de naissance: 
+                <input type="date" id="birthDate" name="birthDate" value="1999-31-12" min="1900-01-01" max="2023-01-01">
+            </h3>
+            <h3>Fonction:
+                <select id="function">
+                    <option value="Acheteur">Acheteur</option>
+                    <option value="Vendeur">Vendeur</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </h3>
+            <h3>Sujet: <input type="text" id="subject" placeholder="Objet du mail" ></h3>
+            <h3>Message: <textarea type="text" id="message" placeholder="Entrez votre message" style = "height: 200px"></textarea></h3>
         </div>
     </div>
-
-
-    <div id="batteries" class="container-fluid bg-simpleP">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>BATTERIES</h2><br>
-                <h3>Notre gamme de batteries est composée de 3 modèles exclusifs de nos marques certifiées. Nous vous proposons des batteries allant du niveau débutant à expert prêt à partir en tournée.</h3><br>
-            </div>
-            <!--BOUTON POUR DÉROULER LE TABLEAU CONTENANT LES IMAGES DES GUITARES, LEUR PRIX, LEURS DÉTAILS ET SPÉCIFICITÉS, ET UN BOUTON D AJOUT AU PANIER -->
-            <div class="col-sm-4">
-                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModalBat" onclick="batterieChilds()" >VOIR LES BATTERIES</button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModalBat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title" id="myModalLabel"><strong>Nos batteries</strong></h1>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body" id="batteriesContainer"></div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-                
-        </div>
-    </div>
-
-
-    <!-- Container (Contact Form) -->
-    <div id="formContainer" class="container-fluid bg-cobain">
-        <h1 id="contact">CONTACT</h1>
-        <h3>Date de contact: <input type="date" id="date" name="date" value="1999-31-12" min="2023-01-01" max="2024-12-31"></h3>
-        <h3>Nom: <input type="text" id="familyName" placeholder="Entrez votre nom"></h3>
-        <h3>Prénom: <input type="text" id="firstName" placeholder="Entrez votre prénom"></h3>
-        <h3>Email: <input type="text" id="requesterMailAddress" placeholder="jean.bombeur@gmail.com"></h3>    
-        <h3>
-            Genre:
-            <select id="genre">
-                <option value="Madame">Madame</option>
-                <option value="Monsieur">Monsieur</option>
-                <option value="Autre">Autre</option>
-            </select>
-        </h3>    
-        <h3>Date de naissance: 
-            <input type="date" id="birthDate" name="birthDate" value="1999-31-12" min="1900-01-01" max="2023-01-01">
-        </h3>
-        <h3>Fonction:
-            <select id="function">
-                <option value="Acheteur">Acheteur</option>
-                <option value="Vendeur">Vendeur</option>
-                <option value="Autre">Autre</option>
-            </select>
-        </h3>
-        <h3>Sujet: <input type="text" id="subject" placeholder="Objet du mail" ></h3>
-        <h3>Message: <textarea type="text" id="message" placeholder="Entrez votre message" style = "height: 200px"></textarea></h3>
-    </div>
-
 
 
     <!-- Footer -->
-    <footer class="container-fluid text-center">
+    <footer class="container-fluid text-center bg-blur">
         <a href="#myPage" title="To Top">
             <span class="glyphicon glyphicon-chevron-up" ></span>
         </a>

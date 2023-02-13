@@ -43,7 +43,7 @@ h4 {
 .jumbotron {
   background-color: rgb(144,0,0);
   color: #fff;
-  padding: 100px 25px;
+  padding: 60px 50px;
   font-family: Montserrat, sans-serif;
 }
 .container-fluid {
@@ -246,6 +246,30 @@ input textarea{
 
 .bg-fooF{
   background-image: url("../img/navWall/fooFighters.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-iron{
+  background-image: url("../img/navWall/ironmaiden.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-rammstein{
+  background-image: url("../img/navWall/rammstein.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-blur{
+  background-image: url("../img/navWall/blur.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
