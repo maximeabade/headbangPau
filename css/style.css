@@ -270,7 +270,7 @@ input textarea{
 
 .bg-blur{
   background-image: url("../img/navWall/blur.png");
-  background-size: cover;
+  background-size: fit-content;
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
