@@ -13,6 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="./js/script.js"></script>
     <script src="./js/addChild.js"></script>
     <script src="./js/mail.js"></script>
@@ -161,30 +162,30 @@
 
                 </div>
                     
-            </div>
+            </div> 
         </div>
 
 
         <!-- Container (Contact Form) -->
         <div id="formContainer" class="container-fluid bg-cobain" style="color: white">
             <h1 id="contact">CONTACT</h1>
-            <h3>Date de contact: <input type="date" id="date" name="date" value="1999-31-12" min="2023-01-01" max="2024-12-31" style="color:black"></h3>
-            <h3>Nom: <input type="text" id="familyName" placeholder="Entrez votre nom" style="color:black"></h3>
-            <h3>Prénom: <input type="text" id="firstName" placeholder="Entrez votre prénom" style="color:black" ></h3>
-            <h3>Email: <input type="text" id="requesterMailAddress" placeholder="jean.bombeur@gmail.com" style="color:black"></h3>    
+            <h3>Date de contact: <input type="date" id="dateContact" name="date" value="1999-31-12" min="2023-01-01" max="2024-12-31" style="color:black"></h3>
+            <h3>Nom: <input type="text" id="nameContact" placeholder="Entrez votre nom" style="color:black"></h3>
+            <h3>Prénom: <input type="text" id="firstNameContact" placeholder="Entrez votre prénom" style="color:black" ></h3>
+            <h3>Email: <input type="text" id="emailContact" placeholder="jean.bombeur@gmail.com" style="color:black"></h3>    
             <h3>
                 Genre:
-                <select id="genre" style="color:black">
+                <select id="genreContact" style="color:black">
                     <option value="Madame">Madame</option>
                     <option value="Monsieur">Monsieur</option>
                     <option value="Autre">Autre</option>
                 </select>
             </h3>    
             <h3>Date de naissance: 
-                <input type="date" id="birthDate" name="birthDate" value="1999-31-12" min="2023-01-01" max="2024-12-31" style="color:black">
+                <input type="date" id="birthDateContact" name="birthDate" value="1999-31-12" min="2023-01-01" max="2024-12-31" style="color:black">
             </h3>
             <h3>Fonction:
-                <select id="function" style="color:black">
+                <select id="roleBusiness" style="color:black">
                     <option value="Acheteur">Acheteur</option>
                     <option value="Vendeur">Vendeur</option>
                     <option value="Autre">Autre</option>
@@ -192,6 +193,7 @@
             </h3>
             <h3>Sujet: <input type="text" id="subject" placeholder="Objet du mail" style="color:black" ></h3>
             <h3>Message: <textarea type="text" id="message" placeholder="Entrez votre message" style = "height: 200px; color:black"></textarea></h3>
+            <button type="button" class="btn btn-info btn-lg" onclick="sendMail()">ENVOYER</button>
         </div>
     </div>
 
