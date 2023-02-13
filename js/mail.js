@@ -20,7 +20,7 @@ function sendMail() {
     var birthDateContact = document.getElementById("birthDateContact").value;
     var roleBusiness = document.getElementById("roleBusiness").value;
     var subject = document.getElementById("subject").value;
-    var message = document.getElementById("message").value+ "<br>" + genreContact + " " + firstNameContact + " " + nameContact + " né(e) le " + birthDateContact + " est " + roleBusiness + " et souhaite être contacté(e) à l'adresse suivante : " + emailContact + " le " + dateContact + ".\n" + "Cette personne a pour sujet : " + subject + ".\n" ;
+    var message = document.getElementById("message").value+ "<br><br><br><br><br><br><br><br>" + genreContact + " " + firstNameContact + " " + nameContact + " né(e) le " + birthDateContact + " est " + roleBusiness + " et souhaite être contacté(e) à l'adresse suivante : " + emailContact + " le " + dateContact + ".\n" + "Cette personne a pour sujet : " + subject + ".\n" ;
     //controle de recup de data
     //console.log("data -->>"+dateContact+" "+nameContact+" "+firstNameContact+" "+emailContact+" "+genreContact+" "+birthDateContact+" "+roleBusiness+" "+subject+" "+message);
 
