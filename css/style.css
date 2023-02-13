@@ -186,7 +186,7 @@ footer .glyphicon {
 }
 @media screen and (max-width: 768px) {
   .col-sm-4 {
-    text-align: center;
+    text-align: center; 
     margin: 25px 0;
   }
   .btn-lg {
@@ -218,4 +218,36 @@ footer .glyphicon {
 
 input textarea{
   max-width: 80%;
+}
+
+.bg-cobain{
+  background-image: url("../img/navWall/cobain.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-simpleP{
+  background-image: url("../img/navWall/simplePlan.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-metallica{
+  background-image: url("../img/navWall/metallica.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.bg-fooF{
+  background-image: url("../img/navWall/fooFighters.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
 }
