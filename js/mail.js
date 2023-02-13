@@ -13,8 +13,8 @@ function sendMail() {
     var roleBusiness = document.getElementById("roleBusiness").value;
     var subject = document.getElementById("subject").value;
     var message = document.getElementById("message").value+ "<br><br><br><br><br><br><br><br>" +
-    genreContact + " " + firstNameContact + " " + nameContact + " né(e) le " + birthDateContact + " est " + roleBusiness + " et souhaite être contactée à l'adresse suivante : " + emailContact +
-    "et a envoyé un mail le " + dateContact + "." + "<br>" + "Cette personne a pour sujet : " + subject + "."
+    genreContact + " " + firstNameContact + " " + nameContact + " né(e) le " + birthDateContact + " est " + roleBusiness + " et souhaite être contacté(e) à l'adresse suivante : " + emailContact +
+    "et a envoyé un mail le " + dateContact + "." + "<br>" + "Cette personne a pour sujet :     " + subject + "."
     + "<br><br><br><br> Service de contact de HEADBANG-PAU";
     //now we send a mail with the data thanks to the smtp js inclusion
     Email.send({
@@ -23,7 +23,22 @@ function sendMail() {
         From : "abademaxim@cy-tech.fr",
         Subject : subject,
         Body : message
-    }).then(
-    message => alert(message)
-    );
+    }).then(message =>{
+        if (message==="OK") {
+            alert("Votre message a bien été envoyé.");
+        } else {
+            message => alert(message)
+        }
+    });
+    //now we empty fields
+    document.getElementById("dateContact").value = "";
+    document.getElementById("nameContact").value = "";
+    document.getElementById("firstNameContact").value = "";
+    document.getElementById("emailContact").value = "";
+    document.getElementById("genreContact").value = "";
+    document.getElementById("birthDateContact").value = "";
+    document.getElementById("roleBusiness").value = "";
+    document.getElementById("subject").value = "";
+    document.getElementById("message").value = "";
+
 }
