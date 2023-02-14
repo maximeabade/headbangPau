@@ -1,5 +1,14 @@
 //this file is destined to send mail thanks to the contact form
 //we claim infos with simple DOM id readings.
+//Creating my recurent elements
+//Into my footer I want to have at first my brand logo, and then add my etablishment contact data and location and finally my own contact as interlocutor
+
+var mailFooter = "";
+
+//In my mail body I want to have the message customer wants to be sent
+
+//In my header I want to have "Confirmation de récpetion de votre message. Le *date*, *genre**Prénom**Nom*, né(e) le *birthdate*,
+// a envoyé depuis l'adresse *contactmail* au sujet de *subject* le mail suivant:""
 
 //we declare the function that will be called when the form is submitted
 function sendMail() {
