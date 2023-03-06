@@ -147,12 +147,52 @@ function removeChildren(){
     }
 };
 
+let cart = [];
+let cartTotal = 0;
+
+let cartProvisory = [];
+
+function addCart(id, quantity) {
+    var item = guitaresTabObject.find(item => item.id === id);
+    var itemProvisory = guitaresTabObject.find(item => item.id === id);
+    item.quantity = quantity;
+    itemProvisory.quantity = quantity;
+    cart.push(item);
+    cartProvisory.push(itemProvisory);
+    console.log(cart);
+    console.log(cartProvisory);
+    cartTotal += item.Price * quantity;
+    cartProvisoryTotal += itemProvisory.Price * quantity;
+    console.log(cartTotal);
+    console.log(cartProvisoryTotal);
+    //alert("Votre produit a été ajouté au panier");
+    document.getElementById("cartTotal").innerHTML = cartTotal;
+    document.getElementById("cartProvisoryTotal").innerHTML = cartProvisoryTotal;
+}
+
+
+
+ //FONCTION POUR RETURN LA QUANTITÉ DES QU ON CLICK SUR PLUS OU MOINS
+ function getQuantity(id){
+    var quantity= document.getElementById(id).value;
+    console.log(quantity);
+    return quantity;
+ }
+
 
 
 function guitareChilds() {
     removeChildren();
     var container = document.getElementById("guitaresContainer");
     for(let i=0; i<guitaresTabObject.length; i++) {
+        function showQuantityInput() {
+            if (quantityInput.style.display === "none") {
+              quantityInput.style.display = "block";
+            } else {
+              quantityInput.style.display = "none";
+            }
+        }
+        var id= guitaresTabObject[i].id;
         var guitare = guitaresTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
@@ -175,7 +215,7 @@ function guitareChilds() {
         var div3 = document.createElement("div");
             div3.setAttribute("class", "col-sm-8");
             //we want to differentiate the divs for each product
-            div3.setAttribute("id", guitare.id);
+            div3.setAttribute("id", guitare.id+"div");
 
         var h4 = document.createElement("h4");
 
@@ -192,14 +232,48 @@ function guitareChilds() {
 
         p2.appendChild(Strong2);
 
-        var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-primary");
-            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
-            button.innerHTML = "Ajouter au panier";
+        /*
+        On veut mtnt un boutton moins, un affichage de la qté et un boutton plus
+        */
+        {var quantityInput = document.createElement("input");
+            quantityInput.setAttribute("type", "number");
+            quantityInput.setAttribute("id", guitare.id+"quantity");
+            quantityInput.setAttribute("placeholder", "1");
+            quantityInput.setAttribute("value", "1");
+            quantityInput.setAttribute("max", guitare.Stock);
+            quantityInput.setAttribute("style", "width: 50px; margin-left: 10px; margin-right: 10px; display: block; text-align: center; border: none; color: black; background-color: #f1f1f1;");
+            quantityInput.setAttribute("onchange", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onkeyup", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onkeydown", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onmouseup", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onmousedown", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onblur", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onfocus", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onselect", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onchange", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("oninput", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("oninvalid", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onselectstart", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onselectend", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+        }
 
-        //faire un boutton pour un modal qui montre l'image du produit, son nom et son stock 
-        var buttonStock = document.createElement("button");
+        var buttonMoins = document.createElement("button");
+            buttonMoins.setAttribute("type", "button");
+            buttonMoins.setAttribute("class", "btn btn-primary");
+            buttonMoins.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
+            buttonMoins.innerHTML = "-";
+            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value > 1){document.getElementById('"+guitare.id+"quantity').value--;}");
+        
+
+        var buttonPlus = document.createElement("button");
+            buttonPlus.setAttribute("type", "button");
+            buttonPlus.setAttribute("class", "btn btn-primary");
+            buttonPlus.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
+            buttonPlus.innerHTML = "+";
+            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value > 1){document.getElementById('"+guitare.id+"quantity').value++;}");
+
+
+        {var buttonStock = document.createElement("button");
             buttonStock.setAttribute("type", "button");
             buttonStock.setAttribute("class", "btn btn-primary");
             buttonStock.setAttribute("style", "margin-top: 10px; margin-bottom: 30px;");
@@ -207,9 +281,105 @@ function guitareChilds() {
             //on hover on the button, show stock
             buttonStock.setAttribute("onmouseover", "this.innerHTML = 'Stock : "+guitare.Stock+"';");
             buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
+        }
+
+        var nomObjet = id;
+        var tableauObjets=[];
+
+
+
+        var ligneDeBouttons = document.createElement("div");
+            ligneDeBouttons.setAttribute("style", "display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 10px; ");
+            ligneDeBouttons.appendChild(buttonMoins);
+            ligneDeBouttons.appendChild(quantityInput);
+            ligneDeBouttons.appendChild(buttonPlus);
+            buttonPlus.setAttribute("onclick", "console.log('"+guitare.id+"');");
+
+
+        var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-primary");
+            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
+            button.innerHTML = "Ajouter au panier";
+
+
+        p2.appendChild(Strong2);
+        h4.appendChild(Strong1);
+        div3.appendChild(h4);
+        div3.appendChild(p1);
+        div3.appendChild(p2);
+        div3.appendChild(button);
+        div3.appendChild(buttonStock);
+        div3.appendChild(ligneDeBouttons);
+        div1.appendChild(div2);
+        div1.appendChild(div3);
+        container.appendChild(div1);
+    }
+}
+
+
+function microChilds() {
+    removeChildren();
+    var container = document.getElementById("microsContainer");
+    for(let i=0; i<microsTabObject.length; i++) {
+        var id = microsTabObject[i].id;
+        var micro = microsTabObject[i];
+        var div1 = document.createElement("div");
+            div1.setAttribute("class", "row");
+            div1.setAttribute("style", "margin-bottom: 20px;");
+            div1.setAttribute("style", "border: none; color: black;");
+
+        var div2 = document.createElement("div");
+            div2.setAttribute("class", "col-sm-4");    
+        
+        var img = document.createElement("img");
+            img.setAttribute("src", micro.Image);
+            img.setAttribute("class", "img-responsive");
+            img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
+            //zoom on hover
+            img.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
+            img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
+
+        div2.appendChild(img);
+
+        var div3 = document.createElement("div");
+            div3.setAttribute("class", "col-sm-8");
+            //we want to differentiate the divs for each product
+            div3.setAttribute("id", id);
+
+        var h4 = document.createElement("h4");
+
+        var Strong1 = document.createElement("strong");
+            Strong1.innerHTML = micro.Name;
+
+        var p1 = document.createElement("p");
+            p1.innerHTML = micro.Details;
+
+        var p2 = document.createElement("p");
+
+        var Strong2 = document.createElement("strong");
+            Strong2.innerHTML = micro.Price+"€";
+
+        p2.appendChild(Strong2);
+
+        var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-primary");
+            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
+            button.innerHTML = "Ajouter au panier";
+            //on click add to cart
+            button.setAttribute("onclick", "addToCart('"+id+"')");
+        
+        var buttonStock = document.createElement("button");
+            buttonStock.setAttribute("type", "button");
+            buttonStock.setAttribute("class", "btn btn-primary");
+            buttonStock.setAttribute("style", "margin-top: 10px; margin-bottom: 30px;");
+            buttonStock.innerHTML = "Voir le stock";
+            //on hover on the button, show stock
+            buttonStock.setAttribute("onmouseover", "this.innerHTML = 'Stock : "+micro.Stock+"';");
+            buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
 
         
-
 
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);
@@ -225,94 +395,70 @@ function guitareChilds() {
 }
 
 
-function microChilds() {
-    removeChildren();
-    var container = document.getElementById("microsContainer");
-    for(let i=0; i<guitaresTabObject.length; i++) {
-        var micro = microsTabObject[i];
-        var div1 = document.createElement("div");
-            div1.setAttribute("class", "row");
-            div1.setAttribute("style", "margin-bottom: 20px;");
-            div1.setAttribute("style", "border: none; color: black;");
-        var div2 = document.createElement("div");
-            div2.setAttribute("class", "col-sm-4");    
-        
-        var img = document.createElement("img");
-            img.setAttribute("src", micro.Image);
-            img.setAttribute("class", "img-responsive");
-            img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
-            //zoom on hover
-            img.setAttribute("onmouseover", "this.style.transform='scale(1.5)';");
-            img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
-
-
-        div2.appendChild(img);
-
-        var div3 = document.createElement("div");
-            div3.setAttribute("class", "col-sm-8");
-        var h4 = document.createElement("h4");
-        var Strong1 = document.createElement("strong");
-            Strong1.innerHTML = micro.Name;
-        var p1 = document.createElement("p");
-            p1.innerHTML = micro.Details;
-        var p2 = document.createElement("p");
-        var Strong2 = document.createElement("strong");
-            Strong2.innerHTML = micro.Price+"€";
-        p2.appendChild(Strong2);
-        var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-primary");
-            button.innerHTML = "Ajouter au panier";
-
-        //boutton d affichage de stock
-
-        p2.appendChild(Strong2);
-        h4.appendChild(Strong1);
-        div3.appendChild(h4);
-        div3.appendChild(p1);
-        div3.appendChild(p2);
-        div3.appendChild(button);
-        div1.appendChild(div2);
-        div1.appendChild(div3);
-        container.appendChild(div1);
-    }
-}
-
-
 function batterieChilds() {
     removeChildren();
     var container = document.getElementById("batteriesContainer");
-    for(let i=0; i<guitaresTabObject.length; i++) {
-        var battery = batteriesTabObject[i];
+    for(let i=0; i<batteriesTabObject.length; i++) {
+        var id = batteriesTabObject[i].id;
+        var batterie = batteriesTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
             div1.setAttribute("style", "margin-bottom: 20px;");
             div1.setAttribute("style", "border: none; color: black;");
+
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
         var img = document.createElement("img");
-            img.setAttribute("src", battery.Image);
+            img.setAttribute("src", batterie.Image);
             img.setAttribute("class", "img-responsive");
             img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
+            //zoom on hover
+            img.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
+            img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
 
         div2.appendChild(img);
 
         var div3 = document.createElement("div");
             div3.setAttribute("class", "col-sm-8");
+            //we want to differentiate the divs for each product
+            div3.setAttribute("id", id);
+
         var h4 = document.createElement("h4");
+
         var Strong1 = document.createElement("strong");
-            Strong1.innerHTML = battery.Name;
+            Strong1.innerHTML = batterie.Name;
+
         var p1 = document.createElement("p");
-            p1.innerHTML = battery.Details;
+            p1.innerHTML = batterie.Details;
+
         var p2 = document.createElement("p");
+
         var Strong2 = document.createElement("strong");
-            Strong2.innerHTML = battery.Price+"€";
+            Strong2.innerHTML = batterie.Price+"€";
+
         p2.appendChild(Strong2);
+
         var button = document.createElement("button");
             button.setAttribute("type", "button");
             button.setAttribute("class", "btn btn-primary");
+            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
             button.innerHTML = "Ajouter au panier";
+            //on click add to cart
+            button.setAttribute("onclick", "addToCart('"+id+"')");
+        
+
+                    
+        var buttonStock = document.createElement("button");
+            buttonStock.setAttribute("type", "button");
+            buttonStock.setAttribute("class", "btn btn-primary");
+            buttonStock.setAttribute("style", "margin-top: 10px; margin-bottom: 30px;");
+            buttonStock.innerHTML = "Voir le stock";
+            //on hover on the button, show stock
+            buttonStock.setAttribute("onmouseover", "this.innerHTML = 'Stock : "+batterie.Stock+"';");
+            buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
+
+    
 
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);
@@ -320,6 +466,7 @@ function batterieChilds() {
         div3.appendChild(p1);
         div3.appendChild(p2);
         div3.appendChild(button);
+        div3.appendChild(buttonStock);
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
