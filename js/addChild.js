@@ -148,6 +148,7 @@ function removeChildren(){
 };
 
 
+
 function guitareChilds() {
     removeChildren();
     var container = document.getElementById("guitaresContainer");
@@ -157,6 +158,7 @@ function guitareChilds() {
             div1.setAttribute("class", "row");
             div1.setAttribute("style", "margin-bottom: 20px;");
             div1.setAttribute("style", "border: none; color: black;");
+
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
@@ -164,24 +166,50 @@ function guitareChilds() {
             img.setAttribute("src", guitare.Image);
             img.setAttribute("class", "img-responsive");
             img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
+            //on hover zoom
+            img.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
+            img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
 
         div2.appendChild(img);
 
         var div3 = document.createElement("div");
             div3.setAttribute("class", "col-sm-8");
+            //we want to differentiate the divs for each product
+            div3.setAttribute("id", guitare.id);
+
         var h4 = document.createElement("h4");
+
         var Strong1 = document.createElement("strong");
             Strong1.innerHTML = guitare.Name;
+
         var p1 = document.createElement("p");
             p1.innerHTML = guitare.Details;
+
         var p2 = document.createElement("p");
+
         var Strong2 = document.createElement("strong");
             Strong2.innerHTML = guitare.Price+"€";
+
         p2.appendChild(Strong2);
+
         var button = document.createElement("button");
             button.setAttribute("type", "button");
             button.setAttribute("class", "btn btn-primary");
+            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
             button.innerHTML = "Ajouter au panier";
+
+        //faire un boutton pour un modal qui montre l'image du produit, son nom et son stock 
+        var buttonStock = document.createElement("button");
+            buttonStock.setAttribute("type", "button");
+            buttonStock.setAttribute("class", "btn btn-primary");
+            buttonStock.setAttribute("style", "margin-top: 10px; margin-bottom: 30px;");
+            buttonStock.innerHTML = "Voir le stock";
+            //on hover on the button, show stock
+            buttonStock.setAttribute("onmouseover", "this.innerHTML = 'Stock : "+guitare.Stock+"';");
+            buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
+
+        
+
 
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);
@@ -189,6 +217,7 @@ function guitareChilds() {
         div3.appendChild(p1);
         div3.appendChild(p2);
         div3.appendChild(button);
+        div3.appendChild(buttonStock);
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
@@ -212,6 +241,10 @@ function microChilds() {
             img.setAttribute("src", micro.Image);
             img.setAttribute("class", "img-responsive");
             img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
+            //zoom on hover
+            img.setAttribute("onmouseover", "this.style.transform='scale(1.5)';");
+            img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
+
 
         div2.appendChild(img);
 
@@ -230,6 +263,8 @@ function microChilds() {
             button.setAttribute("type", "button");
             button.setAttribute("class", "btn btn-primary");
             button.innerHTML = "Ajouter au panier";
+
+        //boutton d affichage de stock
 
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);

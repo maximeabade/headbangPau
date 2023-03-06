@@ -217,6 +217,7 @@ footer .glyphicon {
 
 .headingPic{
     background-image: url("../img/navWall/hellfest-2022-headliners.png");
+    
 }
 
 input textarea{
@@ -282,4 +283,30 @@ input textarea{
 .modal-title{
   font-size: 30px;
   color:#000000;
+}
+
+.cart-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #008080;
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.cart-button:hover {
+  background-color: #005353;
+  cursor: pointer;
+}
+
+.fa-shopping-cart {
+  font-size: 1.2rem;
 }

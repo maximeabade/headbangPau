@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HEADBANG PAU</title>
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
@@ -44,6 +45,10 @@
       </div>
     </nav>
     
+    <!--ON VEUT METTRE UN BOUTTON ROND AVEC UNE ICONE DE PANIER EN BAS A DROITE DE L ECRAN EN FIXE ET EN MODAL, SUR LE CLICK AFFICHER LE CONTENU DU PANIER GéRé EN JS -->
+    <button class="cart-button">
+        <i class="fas fa-shopping-cart"></i>
+      </button>
 
     <div>
         <div id="myPage" class=" text-center headingPic container-fluid" style="background-color: black;">
@@ -170,7 +175,7 @@
         <!-- Container (Contact Form) -->
         <div id="formContainer" class="container-fluid bg-cobain" style="color: white">
             <h1 id="contact">CONTACT</h1>
-            <h3>Date de contact: <input type="date" id="dateContact" name="date" value="1999-31-12" min="2023-01-01" max="2024-12-31" style="color:black"></h3>
+            <h3>Date de contact: <input type="date" id="dateContact" name="date" value="" min="2023-01-01" max="2024-12-31" style="color:black"></h3>
             <h3>Nom: <input type="text" id="nameContact" placeholder="Entrez votre nom" style="color:black"></h3>
             <h3>Prénom: <input type="text" id="firstNameContact" placeholder="Entrez votre prénom" style="color:black" ></h3>
             <h3>Email: <input type="text" id="emailContact" placeholder="jean.bombeur@gmail.com" style="color:black"></h3>    
@@ -183,7 +188,7 @@
                 </select>
             </h3>    
             <h3>Date de naissance: 
-                <input type="date" id="birthDateContact" name="birthDate" value="1999-31-12" min="2023-01-01" max="2024-12-31" style="color:black">
+                <input type="date" id="birthDateContact" name="birthDate" value="" min="1943-01-01" max="2024-31-12" style="color:black">
             </h3>
             <h3>Fonction:
                 <select id="roleBusiness" style="color:black">
