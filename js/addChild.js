@@ -247,21 +247,21 @@ function guitareChilds() {
 
         }
 
-        var buttonMoins = document.createElement("button");
+        {var buttonMoins = document.createElement("button");
             buttonMoins.setAttribute("type", "button");
             buttonMoins.setAttribute("class", "btn btn-primary");
             buttonMoins.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
             buttonMoins.innerHTML = "-";
             buttonMoins.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value > 1){document.getElementById('"+guitare.id+"quantity').value = document.getElementById('"+guitare.id+"quantity').value - 1;}else{document.getElementById('"+guitare.id+"quantity').value = 1;}console.log(document.getElementById('"+guitare.id+"quantity').value);");
+        }
 
-
-        var buttonPlus = document.createElement("button");
+        {var buttonPlus = document.createElement("button");
             buttonPlus.setAttribute("type", "button");
             buttonPlus.setAttribute("class", "btn btn-primary");
             buttonPlus.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
             buttonPlus.innerHTML = "+";
             buttonPlus.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value < 5 ){document.getElementById('"+guitare.id+"quantity').value++;}else{document.getElementById('"+guitare.id+"quantity').value = 5;}console.log(document.getElementById('"+guitare.id+"quantity').value);" );
-
+        }
 
         {var buttonStock = document.createElement("button");
             buttonStock.setAttribute("type", "button");
@@ -273,26 +273,22 @@ function guitareChilds() {
             buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
         }
 
-        var nomObjet = id;
-        var tableauObjets=[];
-
-
-
-        var ligneDeBouttons = document.createElement("div");
-            ligneDeBouttons.setAttribute("style", "display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 10px; ");
+        {var ligneDeBouttons = document.createElement("div");
+            ligneDeBouttons.setAttribute("style", "display: flex; flex-direction: row; justify-content: center; align-items: center; ");
             ligneDeBouttons.appendChild(buttonMoins);
             ligneDeBouttons.appendChild(quantityInput);
             ligneDeBouttons.appendChild(buttonPlus);
-            
+        }            
 
 
-        var button = document.createElement("button");
+        {var button = document.createElement("button");
             button.setAttribute("type", "button");
             button.setAttribute("class", "btn btn-primary");
             button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
             button.innerHTML = "Ajouter au panier";
+        }
 
-
+        {
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);
         div3.appendChild(h4);
@@ -304,6 +300,7 @@ function guitareChilds() {
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
+        }
     }
 }
 
