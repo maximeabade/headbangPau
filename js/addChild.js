@@ -147,58 +147,97 @@ function removeChildren(){
     }
 };
 
+//fonction qui renvoie la guitare en fonction de l'id du div1
+function getGuitareById(id) {
+    console.log(id);
+    for(let i=0; i<guitaresTabObject.length; i++) {
+        if(guitaresTabObject[i].id == id) {
+            console.log(guitaresTabObject[i]);
+        }
+    }
+}
 let cart = [];
 let cartTotal = 0;
+//fonction addGuitareToCart(id, qty)
+function addGuitareToCart(id, qty) {
+    //console.log(id);
+    //console.log(qty);
 
-let cartProvisory = [];
+    //alimentons le panier avec les infos de la guitare qui nous intéressent: image, nom, prix, quantité + ne pas oublier d'actualiser le total du panier
+    //on va chercher la guitare en fonction de l'id
+    for(let i=0; i<guitaresTabObject.length; i++) {
+        if(guitaresTabObject[i].id == id) {
+            console.log(guitaresTabObject[i]);
+            //on crée un objet guitare qui contient les infos de la guitare
+            var guitareCart = {
+                "id": guitaresTabObject[i].id,
+                "name": guitaresTabObject[i].Name,
+                "image": guitaresTabObject[i].Image,
+                "price": guitaresTabObject[i].Price,
+                "qty": qty
+            }
+            //on ajoute la guitare au panier
+            cart.push(guitareCart);
+            //console.log(cart);
+            //on actualise le total du panier
+            cartTotal = cartTotal + (guitaresTabObject[i].Price * qty);
+            console.log(cartTotal);
+        }
+    }
+}
 
-function addCart(id, quantity) {
-    var item = guitaresTabObject.find(item => item.id === id);
-    var itemProvisory = guitaresTabObject.find(item => item.id === id);
-    item.quantity = quantity;
-    itemProvisory.quantity = quantity;
-    cart.push(item);
-    cartProvisory.push(itemProvisory);
-    console.log(cart);
-    console.log(cartProvisory);
-    cartTotal += item.Price * quantity;
-    cartProvisoryTotal += itemProvisory.Price * quantity;
-    console.log(cartTotal);
-    console.log(cartProvisoryTotal);
-    //alert("Votre produit a été ajouté au panier");
-    document.getElementById("cartTotal").innerHTML = cartTotal;
-    document.getElementById("cartProvisoryTotal").innerHTML = cartProvisoryTotal;
+//fonction addMicroToCart(id, qty)
+function addMicroToCart(id, qty) {
+    //console.log(id);
+    //console.log(qty);
+
+    //alimentons le panier avec les infos du micro qui nous intéressent: image, nom, prix, quantité + ne pas oublier d'actualiser le total du panier
+    //on va chercher le micro en fonction de l'id
+    for(let i=0; i<microsTabObject.length; i++) {
+        if(microsTabObject[i].id == id) {
+            console.log(microsTabObject[i]);
+            //on crée un objet micro qui contient les infos du micro
+            var microCart = {
+                "id": microsTabObject[i].id,
+                "name": microsTabObject[i].Name,
+                "image": microsTabObject[i].Image,
+                "price": microsTabObject[i].Price,
+                "qty": qty
+            }
+            //on ajoute le micro au panier
+            cart.push(microCart);
+            //console.log(cart);
+            //on actualise le total du panier
+            cartTotal = cartTotal + (microsTabObject[i].Price * qty);
+            console.log(cartTotal);
+        }
+    }
 }
 
 
 
- //FONCTION POUR RETURN LA QUANTITÉ DES QU ON CLICK SUR PLUS OU MOINS
- function getQuantity(id){
-    var quantity= document.getElementById(id).value;
-    console.log(quantity);
-    return quantity;
- }
+let idToSendForCart= "";
 
-
-
+//
 function guitareChilds() {
     removeChildren();
     var container = document.getElementById("guitaresContainer");
+    var tableauDesId = [];
     for(let i=0; i<guitaresTabObject.length; i++) {
-        function showQuantityInput() {
-            if (quantityInput.style.display === "none") {
-              quantityInput.style.display = "block";
-            } else {
-              quantityInput.style.display = "none";
-            }
-        }
-        var id= guitaresTabObject[i].id;
+        //faire un tableau contenant les id des guitares
+        var id = guitaresTabObject[i].id;
+        tableauDesId.push(id);
+        //console.log(tableauDesId);
+
         var guitare = guitaresTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
             div1.setAttribute("style", "margin-bottom: 20px;");
             div1.setAttribute("style", "border: none; color: black;");
-
+            div1.setAttribute("id", guitare.id);
+            //on hover, get id of the guitare
+            div1.setAttribute("onmouseover", "idToSendForCart = this.id;");
+        
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
@@ -286,6 +325,7 @@ function guitareChilds() {
             button.setAttribute("class", "btn btn-primary");
             button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
             button.innerHTML = "Ajouter au panier";
+            button.setAttribute("onclick", "if((document.getElementById('"+guitare.id+"quantity').value) == ''){(document.getElementById('"+guitare.id+"quantity').value) = 1;}console.log(document.getElementById('"+guitare.id+"quantity').value + ' en qty de ' + idToSendForCart);addGuitareToCart(idToSendForCart , document.getElementById('"+guitare.id+"quantity').value)");//mtnt on veut envoyer ces deux donnees dans une fonction qui va récupérer la guitare et la qty en parametres, et l ajouter au tableau d items du panier
         }
 
         {
@@ -300,8 +340,12 @@ function guitareChilds() {
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
+        console.log(div1.id);
         }
+
     }
+
+
 }
 
 
@@ -459,6 +503,8 @@ function batterieChilds() {
         container.appendChild(div1);
     }
 }
+
+
 
 
 //now we want to push items to the cart, with quatity selectors, and write into the database

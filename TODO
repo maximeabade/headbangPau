@@ -1,10 +1,61 @@
-add the kart round button and manage wht is in here
+manage what is in cart
 
 display of kart content
 
-manage quatity available for products
 
-manage quantity selector from 0 to max only with + and - buttons
 
-manage stock hiding/showing for each product
+////////////////////////////////////////////////////////////////INSTRUCTIONS FOR JSON FILE READING WITHOUT NODE BUT XMLHTTPREQUEST////////////////////////////////////////
+
+Yes, you can edit a JSON file directly in JavaScript by first reading the file using the method described in my previous answer, then modifying the data in memory, and finally writing the modified data back to the file.
+
+Here's an example:
+
+Assuming you have a file called data.json with the following content:
+
+json
+Copy code
+{
+  "name": "John Doe",
+  "age": 30,
+  "email": "john.doe@example.com"
+}
+You can use the XMLHttpRequest object to read the contents of the file, modify the data, and write it back to the file:
+
+javascript
+Copy code
+// Create a new XMLHttpRequest object
+var xhr = new XMLHttpRequest();
+
+// Define the file you want to retrieve
+xhr.open('GET', 'data.json', true);
+
+// Set the response type to JSON
+xhr.responseType = 'json';
+
+// Define a callback function that will be called when the request completes
+xhr.onload = function() {
+  // Check if the request was successful
+  if (xhr.status === 200) {
+    // Parse the JSON response
+    var data = xhr.response;
+
+    // Modify the data
+    data.age = 31;
+
+    // Write the modified data back to the file
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open('PUT', 'data.json', true);
+    xhr2.setRequestHeader('Content-Type', 'application/json');
+    xhr2.send(JSON.stringify(data));
+  }
+};
+
+// Send the request
+xhr.send();
+In this example, the XMLHttpRequest object is used to retrieve the contents of the data.json file. The responseType property is set to 'json' to indicate that the response should be parsed as JSON. When the request completes, the onload callback function is called, which checks the status of the request and retrieves the parsed JSON data from the response property of the XMLHttpRequest object.
+
+Then, the age value of the data object is modified from 30 to 31. To write the modified data back to the file, another XMLHttpRequest object is created and the PUT method is used to update the contents of the file. The setRequestHeader method is used to set the Content-Type header to 'application/json', indicating that the body of the request is a JSON object. Finally, the JSON.stringify method is used to convert the data object to a JSON string, which is sent in the body of the request using the send method.
+
+
+////////////////////////////////////////////////////////////////END OF INSTRUCTIONS////////////////////////////////////////
 
