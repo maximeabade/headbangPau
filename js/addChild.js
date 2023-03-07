@@ -239,22 +239,12 @@ function guitareChilds() {
             quantityInput.setAttribute("type", "number");
             quantityInput.setAttribute("id", guitare.id+"quantity");
             quantityInput.setAttribute("placeholder", "1");
-            quantityInput.setAttribute("value", "1");
             quantityInput.setAttribute("max", guitare.Stock);
             quantityInput.setAttribute("style", "width: 50px; margin-left: 10px; margin-right: 10px; display: block; text-align: center; border: none; color: black; background-color: #f1f1f1;");
-            quantityInput.setAttribute("onchange", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onkeyup", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onkeydown", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onmouseup", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onmousedown", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onblur", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onfocus", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onselect", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onchange", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("oninput", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("oninvalid", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onselectstart", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
-            quantityInput.setAttribute("onselectend", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}");
+            quantityInput.setAttribute("onchange", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}else{console.log(this.value);}");
+            quantityInput.setAttribute("onkeyup", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}else{this.value = this.value+1}");
+            quantityInput.setAttribute("onkeydown", "if(this.value > "+guitare.Stock+"){this.value = "+guitare.Stock+";}else if(this.value < 1){this.value = 1;}else{this.value = this.value+1}");
+
         }
 
         var buttonMoins = document.createElement("button");
@@ -262,15 +252,15 @@ function guitareChilds() {
             buttonMoins.setAttribute("class", "btn btn-primary");
             buttonMoins.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
             buttonMoins.innerHTML = "-";
-            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value > 1){document.getElementById('"+guitare.id+"quantity').value--;}");
-        
+            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value > 1){document.getElementById('"+guitare.id+"quantity').value = document.getElementById('"+guitare.id+"quantity').value - 1;}else{document.getElementById('"+guitare.id+"quantity').value = 1;}console.log(document.getElementById('"+guitare.id+"quantity').value);");
+
 
         var buttonPlus = document.createElement("button");
             buttonPlus.setAttribute("type", "button");
             buttonPlus.setAttribute("class", "btn btn-primary");
             buttonPlus.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
             buttonPlus.innerHTML = "+";
-            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value > 1){document.getElementById('"+guitare.id+"quantity').value++;}");
+            buttonPlus.setAttribute("onclick", "if(document.getElementById('"+guitare.id+"quantity').value < 5 ){document.getElementById('"+guitare.id+"quantity').value++;}else{document.getElementById('"+guitare.id+"quantity').value = 5;}console.log(document.getElementById('"+guitare.id+"quantity').value);" );
 
 
         {var buttonStock = document.createElement("button");
@@ -293,7 +283,7 @@ function guitareChilds() {
             ligneDeBouttons.appendChild(buttonMoins);
             ligneDeBouttons.appendChild(quantityInput);
             ligneDeBouttons.appendChild(buttonPlus);
-            buttonPlus.setAttribute("onclick", "console.log('"+guitare.id+"');");
+            
 
 
         var button = document.createElement("button");
