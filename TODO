@@ -1,6 +1,5 @@
 manage what is in cart  ==> Ok for guitares, need to be done for micros and batteries
-                        +add conditions over the push into cart, like checking stock remaining, and if the product is not already in the cart{if it is in, maximize the qty of the product in the cart by its stock even if qty desired is higher than stock}
-                                                                                                                                            {if it is not in, push the product in the cart with its stock as qty}
+
                         +add a button to remove a product from the cart {methode pop / splice on the cart array + update price of cart and display of cart} 
 display of kart content 
 

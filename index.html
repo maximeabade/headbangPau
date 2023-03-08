@@ -46,9 +46,24 @@
     </nav>
     
     <!--ON VEUT METTRE UN BOUTTON ROND AVEC UNE ICONE DE PANIER EN BAS A DROITE DE L ECRAN EN FIXE ET EN MODAL, SUR LE CLICK AFFICHER LE CONTENU DU PANIER GéRé EN JS -->
-    <button class="cart-button">
-        <i class="fas fa-shopping-cart"></i>
-      </button>
+    <button class="cart-button" onclick="createCartFront(cart)" data-toggle="modal" data-target="#myModalCart"><i class="fas fa-shopping-cart"></i></button>
+     <!-- Modal -->
+     <div class="modal fade" id="myModalCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="myModalLabel"><strong>Panier</strong></h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="cartContainer"></div>
+            </div> 
+        </div>
+    </div>
+
+    
+
 
     <div>
         <div id="myPage" class=" text-center headingPic container-fluid" style="background-color: black;">

@@ -147,27 +147,90 @@ function removeChildren(){
     }
 };
 
-//fonction qui renvoie la guitare en fonction de l'id du div1
-function getGuitareById(id) {
-    console.log(id);
-    for(let i=0; i<guitaresTabObject.length; i++) {
-        if(guitaresTabObject[i].id == id) {
-            console.log(guitaresTabObject[i]);
-        }
+
+
+//fonction qui crée le front du panier
+function createCartFront(cart) {
+
+    //faire une fonction qui vide l'affichage du panier ==>
+    let cartContainer = document.getElementById("cartContainer");
+    //pour chaque objet du panier, on crée un div avec les infos de l'objet
+    for(let i=0; i<cart.length; i++) {
+        //on veut afficher en une ligne l'image de l'élément du panier, son nom, la qty sélectionnée et son prix
+        let divObject = document.createElement("div");
+            divObject.setAttribute("class", "row");
+            divObject.setAttribute("id", cart[i].id);
+            divObject.setAttribute("style", "margin-bottom: 20px;");
+            divObject.setAttribute("style", "border: none; color: black;");
+
+        let div2Object = document.createElement("div");
+            div2Object.setAttribute("class", "col-sm-4"); 
+
+        let imageObject = document.createElement("img");
+            imageObject.setAttribute("src", cart[i].image);
+            imageObject.setAttribute("class", "img-responsive");
+            imageObject.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
+            imageObject.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
+            imageObject.setAttribute("onmouseout", "this.style.transform='scale(1)';");
+
+        div2Object.appendChild(imageObject);
+
+        let Strong1Object = document.createElement("strong");
+            Strong1Object.innerHTML = cart[i].name;
+
+        let Strong2Object = document.createElement("strong");
+            Strong2Object.innerHTML = cart[i].price+"€";
+
+        let Strong3Object = document.createElement("strong");
+            Strong3Object.innerHTML = "x"+cart[i].qty;
+        
+        let p2Object = document.createElement("p");
+        console.log(divObject);
+        p2Object.appendChild(Strong1Object);
+        p2Object.appendChild(Strong2Object);
+        p2Object.appendChild(Strong3Object);
+        div2Object.appendChild(p2Object);
+        divObject.appendChild(div2Object);
+        cartContainer.appendChild(divObject);
+        //console.log(cartContainer);
     }
+    /*
+    This is what the modal looks like: 
+         <!-- Modal -->
+     <div class="modal fade" id="myModalCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title" id="myModalLabel"><strong>Panier</strong></h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="cartContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    now i want to make appear and disappear as i want
+
+    */
+
+
+   
 }
+
+
 let cart = [];
 let cartTotal = 0;
-//fonction addGuitareToCart(id, qty)
+
+//fonction qui ajoute une guitare au panier si elle n'est pas déjà présente. Sinon, elle compare les qty et update la qty dans l objet du panier sans en rajouter un nouveau
 function addGuitareToCart(id, qty) {
     //console.log(id);
     //console.log(qty);
-
-    //alimentons le panier avec les infos de la guitare qui nous intéressent: image, nom, prix, quantité + ne pas oublier d'actualiser le total du panier
     //on va chercher la guitare en fonction de l'id
     for(let i=0; i<guitaresTabObject.length; i++) {
         if(guitaresTabObject[i].id == id) {
-            console.log(guitaresTabObject[i]);
+            //console.log(guitaresTabObject[i]);
             //on crée un objet guitare qui contient les infos de la guitare
             var guitareCart = {
                 "id": guitaresTabObject[i].id,
@@ -176,15 +239,43 @@ function addGuitareToCart(id, qty) {
                 "price": guitaresTabObject[i].Price,
                 "qty": qty
             }
-            //on ajoute la guitare au panier
-            cart.push(guitareCart);
+           // console.log(guitareCart.id , id);
+            
+            //on va vérifier si la guitare est déjà présente dans le panier
+            if(cart.length == 0) {
+                cart.push(guitareCart);
+                console.log("le panier est vide, on ajoute l elt");
+            }
+
+            else {                 //sinon, on va vérifier si la guitare est déjà présente dans le panier
+                //pour chaque objet du panier(boucle sur j), on compare l'id de l'objet avec l'id de la guitare, qui est le meme que celui rentré en paramètre
+                console.log(cart.length, id);
+                for(let j=0; j<cart.length; j++) {
+                    if(cart[j].id == id && cart[j].qty != guitareCart.qty) {
+                        console.log(id , cart[j].id);
+                        //si la guitare est déjà présente dans le panier, on compare les qty et on update la qty dans l'objet du panier sans en rajouter un nouveau
+                        cart[j].qty = guitareCart.qty;
+                        console.log("l elt est deja present mais on a changé sa qty");
+                    }else if (cart[j].id != id){ //si la guitare n'est pas présente dans le panier, on l'ajoute
+                        cart.push(guitareCart);
+                    }
+                }
+            }
             //console.log(cart);
-            //on actualise le total du panier
-            cartTotal = cartTotal + (guitaresTabObject[i].Price * qty);
-            console.log(cartTotal);
         }
     }
+    //actualiser le total du panier
+    cartTotal = 0;
+    for(let i=0; i<cart.length; i++) {
+        cartTotal += cart[i].price * cart[i].qty;
+    }
+    //console.log(cartTotal);
+    console.log(cart);
 }
+
+
+
+
 
 //fonction addMicroToCart(id, qty)
 function addMicroToCart(id, qty) {
@@ -340,7 +431,7 @@ function guitareChilds() {
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
-        console.log(div1.id);
+        //console.log(div1.id);
         }
 
     }
