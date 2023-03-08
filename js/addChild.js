@@ -127,7 +127,36 @@ var batteriesTabObject = [
     }  
 ];
 
+function cartCleaner(cart) {
+    var cartCopy = cart.slice(); // make a copy of the cart
+    var cartTabToSend = [];
+    console.log("cartCopy: ",cartCopy);
+    // iterate over the cart from the end to the beginning
+    for (let i = cartCopy.length - 1; i >= 0; i--) {
+        let found = false;
+        // check if the current item is already in the cartTabToSend
+        for (let j = 0; j < cartTabToSend.length; j++) {
+            if (cartCopy[i].id === cartTabToSend[j].id) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            // if the current item is not found, add it to cartTabToSend
+            cartTabToSend.push(cartCopy[i]);
+        }
+    }
+    // reverse the cartTabToSend to match the original cart order
+    cartTabToSend.reverse();
+    cart = cartTabToSend;
+    console.log(cart);
+    return cart;
+}
+
+
+
 function removeChildren(){
+    let cartContainer = document.getElementById("cartContainer");
     var guitaresContainer = document.getElementById("guitaresContainer");
     var microsContainer = document.getElementById("microsContainer");
     var batteriesContainer = document.getElementById("batteriesContainer");
@@ -144,14 +173,20 @@ function removeChildren(){
         while (batteriesContainer.firstChild) {
             batteriesContainer.removeChild(batteriesContainer.firstChild);
         }
+    }else if(cartContainer.hasChildNodes()) {
+        while (cartContainer.firstChild) {
+            cartContainer.removeChild(cartContainer.firstChild);
+        }
     }
+    cartCleaner(cart);  
 };
 
 
 
 //fonction qui crée le front du panier
 function createCartFront(cart) {
-
+    removeChildren();
+    cartCleaner(cart);
     //faire une fonction qui vide l'affichage du panier ==>
     let cartContainer = document.getElementById("cartContainer");
     //pour chaque objet du panier, on crée un div avec les infos de l'objet
@@ -194,45 +229,17 @@ function createCartFront(cart) {
         cartContainer.appendChild(divObject);
         //console.log(cartContainer);
     }
-    /*
-    This is what the modal looks like: 
-         <!-- Modal -->
-     <div class="modal fade" id="myModalCart" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title" id="myModalLabel"><strong>Panier</strong></h1>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="cartContainer"></div>
-            </div>
-        </div>
-    </div>
 
-    now i want to make appear and disappear as i want
-
-    */
 }
 
-//fonction pour créer le panier définitif débarassé des doublons
-function cartCleaner(cart){
-    var cartCopy = cart;
-    var cartTabToSend = [];
-    console.log("cartCopy: ",cartCopy);
-    //cartCopy est une copie exacte de cart; on va donc aller prendre le dernier objet de cartCopy tant que cartCopy.length > 0
-
-        
-   // console.log("cartTabToSend: ",cartTabToSend);
-}
 
 
 let cart = [];
 let cartTotal = 0;
-
+cartCleaner(cart);
 //fonction qui ajoute une guitare au panier si elle n'est pas déjà présente. Sinon, elle compare les qty et update la qty dans l objet du panier sans en rajouter un nouveau
 function addGuitareToCart(id, qty) {
+    cartCleaner(cart);
     //console.log(id);
     //console.log(qty);
     //on va chercher la guitare en fonction de l'id
@@ -278,6 +285,7 @@ function addGuitareToCart(id, qty) {
         cartTotal += cart[i].price * cart[i].qty;
     }
     //console.log(cartTotal);
+    cartCleaner(cart);
     console.log(cart);
 }
 
