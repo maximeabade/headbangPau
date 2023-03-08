@@ -214,9 +214,17 @@ function createCartFront(cart) {
     now i want to make appear and disappear as i want
 
     */
+}
 
+//fonction pour créer le panier définitif débarassé des doublons
+function cartCleaner(cart){
+    var cartCopy = cart;
+    var cartTabToSend = [];
+    console.log("cartCopy: ",cartCopy);
+    //cartCopy est une copie exacte de cart; on va donc aller prendre le dernier objet de cartCopy tant que cartCopy.length > 0
 
-   
+        
+   // console.log("cartTabToSend: ",cartTabToSend);
 }
 
 
