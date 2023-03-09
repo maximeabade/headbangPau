@@ -209,6 +209,18 @@ function removeChildren(){
 
 
 ///////////////////////////////////////--AJOUTS AU PANIER--///////////////////////////////////////
+//animation de l objet qui se déplace dans le panier
+function animateAddToCart(id) {
+    //on veut que l'objet glisse legerement vers la droite pour afficher le message "ajouté au panier"
+    //on va donc récupérer la position de l'objet
+    var imgToSlideByHalf = document.getElementById(id+"img");
+    var position = imgToSlideByHalf.getBoundingClientRect();
+    console.log(document.getElementById(id+"img"));
+    console.log(position);
+    //TO CONTINUE...
+}
+
+
 //fonction addGuitareToCart(id, qty)
 function addGuitareToCart(id, qty) {
     cartCleaner(cart);
@@ -252,6 +264,7 @@ function addGuitareToCart(id, qty) {
         }
     }
     //console.log(cartTotal);
+    animateAddToCart(id);
     cart = cartCleaner(cart);
     //console.log(cart);
 }
@@ -357,6 +370,12 @@ function removeFromCartTab(id){
             cart.splice(i, 1);
         } 
     }
+    document.getElementById(""+id+"div3").innerHTML = "";
+    document.getElementById(""+id+"DIV").innerHTML = "";
+    if(cart.length == 0) {
+        document.getElementById("cartContainer").innerHTML = "Votre panier est vide";
+    }
+    updateCartTotal(cart);
     return cart;
 }
 
@@ -394,6 +413,7 @@ function guitareChilds() {
             div2.setAttribute("class", "col-sm-4");    
         
         var img = document.createElement("img");
+            img.setAttribute("id", id+"img");
             img.setAttribute("src", guitare.Image);
             img.setAttribute("class", "img-responsive");
             img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
@@ -808,7 +828,7 @@ function createCartFront(cart) {
             var removalButton = document.createElement("button");
                 removalButton.setAttribute("class", "btn btn-danger");
                 removalButton.setAttribute("id", cart[i].id+"removalButton");
-                removalButton.setAttribute("onclick", "removeFromCart("+cart[i].id+")");
+                removalButton.setAttribute("onclick", "removeFromCartTab('"+cart[i].id+"');updateCartTotal(cart);createCartFront(cart);");
                 removalButton.innerHTML = "Supprimer du panier";
 
             {
@@ -829,19 +849,52 @@ function createCartFront(cart) {
                 cartContainer.appendChild(document.createElement("hr"));
                 //console.log(div1.id);
             }
-            //bouton pour vider le panier
-            let emptyCartButton = document.createElement("button");
-                emptyCartButton.setAttribute("class", "btn btn-danger");
-                emptyCartButton.setAttribute("id", "emptyCartButton");
-                emptyCartButton.setAttribute("onclick", "emptyCart()");
-                emptyCartButton.innerHTML = "Vider le panier";
-            cartContainer.appendChild(emptyCartButton);
         }
+            //affichage du total
+            let total = document.createElement("Strong");
+            total.setAttribute("id", "total");
+            total.innerHTML = "Total: "+cartTotal+"€";
+        cartContainer.appendChild(total);
+        cartContainer.appendChild(document.createElement("br"));
+        //bouton pour vider le panier
+        let emptyCartButton = document.createElement("button");
+            emptyCartButton.setAttribute("class", "btn btn-danger");
+            emptyCartButton.setAttribute("style", "margin-right: 10px;");
+            emptyCartButton.setAttribute("id", "emptyCartButton");
+            emptyCartButton.setAttribute("onclick", "emptyCart()");
+            emptyCartButton.innerHTML = "Vider le panier";
+        cartContainer.appendChild(emptyCartButton);
+        //bouton pour passer à la page de paiement
+        let paymentButton = document.createElement("button");
+            paymentButton.setAttribute("class", "btn btn-success");
+            paymentButton.setAttribute("id", "paymentButton");
+            paymentButton.innerHTML = "Confirmer le panier";
+            /*
+                    <--------- SI ON VEUT AFFICHER LE TERMINAL DE PAIEMENT DANS UN IFRAME, IL FAUT FAIRE COMME CI-DESSOUS -------->
+            paymentButton.addEventListener("click", function() {
+                const iframe = document.createElement("iframe");
+                iframe.src = "https://www.example.com";
+                document.body.appendChild(iframe);
+            });
+            
+            */
+            /*
+                    <--------- SI ON VEUT AFFICHER LE TERMINAL DE PAIEMENT DANS UNE NOUVELLE PAGE RÉDUITE, IL FAUT FAIRE COMME CI-DESSOUS -------->
+            window.open("nouvelle_page.html", "Nom_de_la_fenetre", "height=400,width=400");
+            */
+            paymentButton.addEventListener("click", function() {
+                window.open("./html/fakePaymentTerminal.html", "Fake Terminal", "height=400,width=800");
+            });
+
+        cartContainer.appendChild(paymentButton);
     } else {
-        let emptyCartMessage = document.createElement("p");
+        let emptyCartMessage = document.createElement("Strong");
             emptyCartMessage.innerHTML = "Votre panier est vide";
         cartContainer.appendChild(emptyCartMessage);
     }
 }
+
+
+
 
 
