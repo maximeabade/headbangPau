@@ -127,10 +127,29 @@ var batteriesTabObject = [
     }  
 ];
 
+
+let cart = [];
+let idToSendForCart= "";
+
+
+
+ //fonction qui update le total du panier
+function updateCartTotal(cart) {
+    var cartTotal = 0;
+    for (let i = 0; i < cart.length; i++) {
+        cartTotal += Number(cart[i].price)*Number(cart[i].qty);
+    }
+    //document.getElementById("cartTotal").innerHTML = cartTotal;      ==> pour afficher le total dans le panier
+    return cartTotal;
+}
+
+
+//fonction qui supprime les doublons dans le panier
 function cartCleaner(cart) {
+    var cartTotal = 0;
     var cartCopy = cart.slice(); // make a copy of the cart
     var cartTabToSend = [];
-    console.log("cartCopy: ",cartCopy);
+    //console.log("cartCopy: ",cartCopy);
     // iterate over the cart from the end to the beginning
     for (let i = cartCopy.length - 1; i >= 0; i--) {
         let found = false;
@@ -149,12 +168,15 @@ function cartCleaner(cart) {
     // reverse the cartTabToSend to match the original cart order
     cartTabToSend.reverse();
     cart = cartTabToSend;
-    console.log(cart);
+    //console.log(cart);
+    //update cartTotal
+    cartTotal = updateCartTotal(cart);
+    console.log(cartTotal);
     return cart;
 }
 
 
-
+//vide les tableaux du panier, des guitares, des micros et des batteries
 function removeChildren(){
     let cartContainer = document.getElementById("cartContainer");
     var guitaresContainer = document.getElementById("guitaresContainer");
@@ -183,10 +205,11 @@ function removeChildren(){
 
 
 
-//fonction qui crée le front du panier
+//fonction qui crée le front du panier ==> A REPRENDRE
 function createCartFront(cart) {
     removeChildren();
-    cartCleaner(cart);
+    cart = cartCleaner(cart);
+    var cartTotal = updateCartTotal(cart);
     //faire une fonction qui vide l'affichage du panier ==>
     let cartContainer = document.getElementById("cartContainer");
     //pour chaque objet du panier, on crée un div avec les infos de l'objet
@@ -220,7 +243,7 @@ function createCartFront(cart) {
             Strong3Object.innerHTML = "x"+cart[i].qty;
         
         let p2Object = document.createElement("p");
-        console.log(divObject);
+        //console.log(divObject);
         p2Object.appendChild(Strong1Object);
         p2Object.appendChild(Strong2Object);
         p2Object.appendChild(Strong3Object);
@@ -229,15 +252,15 @@ function createCartFront(cart) {
         cartContainer.appendChild(divObject);
         //console.log(cartContainer);
     }
+    console.log(cartContainer);
+    console.log(updateCartTotal(cart));
 
 }
 
 
 
-let cart = [];
-let cartTotal = 0;
-cartCleaner(cart);
-//fonction qui ajoute une guitare au panier si elle n'est pas déjà présente. Sinon, elle compare les qty et update la qty dans l objet du panier sans en rajouter un nouveau
+///////////////////////////////////////--AJOUTS AU PANIER--///////////////////////////////////////
+//fonction addGuitareToCart(id, qty)
 function addGuitareToCart(id, qty) {
     cartCleaner(cart);
     //console.log(id);
@@ -264,7 +287,7 @@ function addGuitareToCart(id, qty) {
 
             else {                 //sinon, on va vérifier si la guitare est déjà présente dans le panier
                 //pour chaque objet du panier(boucle sur j), on compare l'id de l'objet avec l'id de la guitare, qui est le meme que celui rentré en paramètre
-                console.log(cart.length, id);
+                //console.log(cart.length, id);
                 for(let j=0; j<cart.length; j++) {
                     if(cart[j].id == id && cart[j].qty != guitareCart.qty) {
                         console.log(id , cart[j].id);
@@ -279,31 +302,20 @@ function addGuitareToCart(id, qty) {
             //console.log(cart);
         }
     }
-    //actualiser le total du panier
-    cartTotal = 0;
-    for(let i=0; i<cart.length; i++) {
-        cartTotal += cart[i].price * cart[i].qty;
-    }
     //console.log(cartTotal);
-    cartCleaner(cart);
-    console.log(cart);
+    cart = cartCleaner(cart);
+    //console.log(cart);
 }
-
-
-
-
-
 //fonction addMicroToCart(id, qty)
 function addMicroToCart(id, qty) {
+    cartCleaner(cart);
     //console.log(id);
     //console.log(qty);
-
-    //alimentons le panier avec les infos du micro qui nous intéressent: image, nom, prix, quantité + ne pas oublier d'actualiser le total du panier
-    //on va chercher le micro en fonction de l'id
+    //on va chercher la guitare en fonction de l'id
     for(let i=0; i<microsTabObject.length; i++) {
         if(microsTabObject[i].id == id) {
-            console.log(microsTabObject[i]);
-            //on crée un objet micro qui contient les infos du micro
+            //console.log(guitaresTabObject[i]);
+            //on crée un objet guitare qui contient les infos de la guitare
             var microCart = {
                 "id": microsTabObject[i].id,
                 "name": microsTabObject[i].Name,
@@ -311,21 +323,87 @@ function addMicroToCart(id, qty) {
                 "price": microsTabObject[i].Price,
                 "qty": qty
             }
-            //on ajoute le micro au panier
-            cart.push(microCart);
+           // console.log(guitareCart.id , id);
+            
+            //on va vérifier si la guitare est déjà présente dans le panier
+            if(cart.length == 0) {
+                cart.push(microCart);
+                console.log("le panier est vide, on ajoute l elt");
+            }
+
+            else {                 //sinon, on va vérifier si la guitare est déjà présente dans le panier
+                //pour chaque objet du panier(boucle sur j), on compare l'id de l'objet avec l'id de la guitare, qui est le meme que celui rentré en paramètre
+                //console.log(cart.length, id);
+                for(let j=0; j<cart.length; j++) {
+                    if(cart[j].id == id && cart[j].qty != microCart.qty) {
+                        console.log(id , cart[j].id);
+                        //si la guitare est déjà présente dans le panier, on compare les qty et on update la qty dans l'objet du panier sans en rajouter un nouveau
+                        cart[j].qty = microCart.qty;
+                        console.log("l elt est deja present mais on a changé sa qty");
+                    }else if (cart[j].id != id){ //si la guitare n'est pas présente dans le panier, on l'ajoute
+                        cart.push(microCart);
+                    }
+                }
+            }
             //console.log(cart);
-            //on actualise le total du panier
-            cartTotal = cartTotal + (microsTabObject[i].Price * qty);
-            console.log(cartTotal);
         }
     }
+    //actualiser le total du panier
+
+    cart = cartCleaner(cart);
+}
+//fonction addBatterieToCart(id, qty)
+function addBatterieToCart(id , qty){
+    cartCleaner(cart);
+    //console.log(id);
+    //console.log(qty);
+    //on va chercher la guitare en fonction de l'id
+    for(let i=0; i<batteriesTabObject.length; i++) {
+        if(batteriesTabObject[i].id == id) {
+            //console.log(guitaresTabObject[i]);
+            //on crée un objet guitare qui contient les infos de la guitare
+            var batterieCart = {
+                "id": batteriesTabObject[i].id,
+                "name": batteriesTabObject[i].Name,
+                "image": batteriesTabObject[i].Image,
+                "price": batteriesTabObject[i].Price,
+                "qty": qty
+            }
+           // console.log(guitareCart.id , id);
+            
+            //on va vérifier si la guitare est déjà présente dans le panier
+            if(cart.length == 0) {
+                cart.push(batterieCart);
+                console.log("le panier est vide, on ajoute l elt");
+            }
+
+            else {                 //sinon, on va vérifier si la guitare est déjà présente dans le panier
+                //pour chaque objet du panier(boucle sur j), on compare l'id de l'objet avec l'id de la guitare, qui est le meme que celui rentré en paramètre
+                //console.log(cart.length, id);
+                for(let j=0; j<cart.length; j++) {
+                    if(cart[j].id == id && cart[j].qty != batterieCart.qty) {
+                        console.log(id , cart[j].id);
+                        //si la guitare est déjà présente dans le panier, on compare les qty et on update la qty dans l'objet du panier sans en rajouter un nouveau
+                        cart[j].qty = batterieCart.qty;
+                        console.log("l elt est deja present mais on a changé sa qty");
+                    }else if (cart[j].id != id){ //si la guitare n'est pas présente dans le panier, on l'ajoute
+                        cart.push(batterieCart);
+                    }
+                }
+            }
+            //console.log(cart);
+        }
+    }
+    //actualiser le total du panier
+
 }
 
 
 
-let idToSendForCart= "";
 
-//
+
+
+//////////////////////////////////////--GÉNÉRATION DES HTML DES PRODUITS + INTERACTIONS--//////////////////////////////////////
 function guitareChilds() {
     removeChildren();
     var container = document.getElementById("guitaresContainer");
@@ -452,21 +530,29 @@ function guitareChilds() {
 
     }
 
-
+    cart = cartCleaner(cart);
 }
 
 
 function microChilds() {
     removeChildren();
     var container = document.getElementById("microsContainer");
+    var tableauDesId = [];
     for(let i=0; i<microsTabObject.length; i++) {
+        //faire un tableau contenant les id des guitares
         var id = microsTabObject[i].id;
+        tableauDesId.push(id);
+        //console.log(tableauDesId);
+
         var micro = microsTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
             div1.setAttribute("style", "margin-bottom: 20px;");
             div1.setAttribute("style", "border: none; color: black;");
-
+            div1.setAttribute("id", micro.id);
+            //on hover, get id of the micro
+            div1.setAttribute("onmouseover", "idToSendForCart = this.id;");
+        
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
@@ -474,7 +560,7 @@ function microChilds() {
             img.setAttribute("src", micro.Image);
             img.setAttribute("class", "img-responsive");
             img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
-            //zoom on hover
+            //on hover zoom
             img.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
             img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
 
@@ -483,7 +569,7 @@ function microChilds() {
         var div3 = document.createElement("div");
             div3.setAttribute("class", "col-sm-8");
             //we want to differentiate the divs for each product
-            div3.setAttribute("id", id);
+            div3.setAttribute("id", micro.id+"div");
 
         var h4 = document.createElement("h4");
 
@@ -500,15 +586,38 @@ function microChilds() {
 
         p2.appendChild(Strong2);
 
-        var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-primary");
-            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
-            button.innerHTML = "Ajouter au panier";
-            //on click add to cart
-            button.setAttribute("onclick", "addToCart('"+id+"')");
-        
-        var buttonStock = document.createElement("button");
+        /*
+        On veut mtnt un boutton moins, un affichage de la qté et un boutton plus
+        */
+        {var quantityInput = document.createElement("input");
+            quantityInput.setAttribute("type", "number");
+            quantityInput.setAttribute("id", micro.id+"quantity");
+            quantityInput.setAttribute("placeholder", "1");
+            quantityInput.setAttribute("max", micro.Stock);
+            quantityInput.setAttribute("style", "width: 50px; margin-left: 10px; margin-right: 10px; display: block; text-align: center; border: none; color: black; background-color: #f1f1f1;");
+            quantityInput.setAttribute("onchange", "if(this.value > "+micro.Stock+"){this.value = "+micro.Stock+";}else if(this.value < 1){this.value = 1;}else{console.log(this.value);}");
+            quantityInput.setAttribute("onkeyup", "if(this.value > "+micro.Stock+"){this.value = "+micro.Stock+";}else if(this.value < 1){this.value = 1;}else{this.value = this.value+1}");
+            quantityInput.setAttribute("onkeydown", "if(this.value > "+micro.Stock+"){this.value = "+micro.Stock+";}else if(this.value < 1){this.value = 1;}else{this.value = this.value+1}");
+
+        }
+
+        {var buttonMoins = document.createElement("button");
+            buttonMoins.setAttribute("type", "button");
+            buttonMoins.setAttribute("class", "btn btn-primary");
+            buttonMoins.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
+            buttonMoins.innerHTML = "-";
+            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+micro.id+"quantity').value > 1){document.getElementById('"+micro.id+"quantity').value = document.getElementById('"+micro.id+"quantity').value - 1;}else{document.getElementById('"+micro.id+"quantity').value = 1;}console.log(document.getElementById('"+micro.id+"quantity').value);");
+        }
+
+        {var buttonPlus = document.createElement("button");
+            buttonPlus.setAttribute("type", "button");
+            buttonPlus.setAttribute("class", "btn btn-primary");
+            buttonPlus.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
+            buttonPlus.innerHTML = "+";
+            buttonPlus.setAttribute("onclick", "if(document.getElementById('"+micro.id+"quantity').value < 5 ){document.getElementById('"+micro.id+"quantity').value++;}else{document.getElementById('"+micro.id+"quantity').value = 5;}console.log(document.getElementById('"+micro.id+"quantity').value);" );
+        }
+
+        {var buttonStock = document.createElement("button");
             buttonStock.setAttribute("type", "button");
             buttonStock.setAttribute("class", "btn btn-primary");
             buttonStock.setAttribute("style", "margin-top: 10px; margin-bottom: 30px;");
@@ -516,9 +625,25 @@ function microChilds() {
             //on hover on the button, show stock
             buttonStock.setAttribute("onmouseover", "this.innerHTML = 'Stock : "+micro.Stock+"';");
             buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
+        }
 
-        
+        {var ligneDeBouttons = document.createElement("div");
+            ligneDeBouttons.setAttribute("style", "display: flex; flex-direction: row; justify-content: center; align-items: center; ");
+            ligneDeBouttons.appendChild(buttonMoins);
+            ligneDeBouttons.appendChild(quantityInput);
+            ligneDeBouttons.appendChild(buttonPlus);
+        }            
 
+
+        {var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-primary");
+            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
+            button.innerHTML = "Ajouter au panier";
+            button.setAttribute("onclick", "if((document.getElementById('"+micro.id+"quantity').value) == ''){(document.getElementById('"+micro.id+"quantity').value) = 1;}console.log(document.getElementById('"+micro.id+"quantity').value + ' en qty de ' + idToSendForCart);addMicroToCart(idToSendForCart , document.getElementById('"+micro.id+"quantity').value)");//mtnt on veut envoyer ces deux donnees dans une fonction qui va récupérer la micro et la qty en parametres, et l ajouter au tableau d items du panier
+        }
+
+        {
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);
         div3.appendChild(h4);
@@ -526,24 +651,37 @@ function microChilds() {
         div3.appendChild(p2);
         div3.appendChild(button);
         div3.appendChild(buttonStock);
+        div3.appendChild(ligneDeBouttons);
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
+        //console.log(div1.id);
+        }
     }
+    cart = cartCleaner(cart);
+
 }
 
 
 function batterieChilds() {
     removeChildren();
     var container = document.getElementById("batteriesContainer");
+    var tableauDesId = [];
     for(let i=0; i<batteriesTabObject.length; i++) {
+        //faire un tableau contenant les id des guitares
         var id = batteriesTabObject[i].id;
+        tableauDesId.push(id);
+        //console.log(tableauDesId);
+
         var batterie = batteriesTabObject[i];
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
             div1.setAttribute("style", "margin-bottom: 20px;");
             div1.setAttribute("style", "border: none; color: black;");
-
+            div1.setAttribute("id", batterie.id);
+            //on hover, get id of the batterie
+            div1.setAttribute("onmouseover", "idToSendForCart = this.id;");
+        
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
         
@@ -551,7 +689,7 @@ function batterieChilds() {
             img.setAttribute("src", batterie.Image);
             img.setAttribute("class", "img-responsive");
             img.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
-            //zoom on hover
+            //on hover zoom
             img.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
             img.setAttribute("onmouseout", "this.style.transform='scale(1)';");
 
@@ -560,7 +698,7 @@ function batterieChilds() {
         var div3 = document.createElement("div");
             div3.setAttribute("class", "col-sm-8");
             //we want to differentiate the divs for each product
-            div3.setAttribute("id", id);
+            div3.setAttribute("id", batterie.id+"div");
 
         var h4 = document.createElement("h4");
 
@@ -577,17 +715,38 @@ function batterieChilds() {
 
         p2.appendChild(Strong2);
 
-        var button = document.createElement("button");
-            button.setAttribute("type", "button");
-            button.setAttribute("class", "btn btn-primary");
-            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
-            button.innerHTML = "Ajouter au panier";
-            //on click add to cart
-            button.setAttribute("onclick", "addToCart('"+id+"')");
-        
+        /*
+        On veut mtnt un boutton moins, un affichage de la qté et un boutton plus
+        */
+        {var quantityInput = document.createElement("input");
+            quantityInput.setAttribute("type", "number");
+            quantityInput.setAttribute("id", batterie.id+"quantity");
+            quantityInput.setAttribute("placeholder", "1");
+            quantityInput.setAttribute("max", batterie.Stock);
+            quantityInput.setAttribute("style", "width: 50px; margin-left: 10px; margin-right: 10px; display: block; text-align: center; border: none; color: black; background-color: #f1f1f1;");
+            quantityInput.setAttribute("onchange", "if(this.value > "+batterie.Stock+"){this.value = "+batterie.Stock+";}else if(this.value < 1){this.value = 1;}else{console.log(this.value);}");
+            quantityInput.setAttribute("onkeyup", "if(this.value > "+batterie.Stock+"){this.value = "+batterie.Stock+";}else if(this.value < 1){this.value = 1;}else{this.value = this.value+1}");
+            quantityInput.setAttribute("onkeydown", "if(this.value > "+batterie.Stock+"){this.value = "+batterie.Stock+";}else if(this.value < 1){this.value = 1;}else{this.value = this.value+1}");
 
-                    
-        var buttonStock = document.createElement("button");
+        }
+
+        {var buttonMoins = document.createElement("button");
+            buttonMoins.setAttribute("type", "button");
+            buttonMoins.setAttribute("class", "btn btn-primary");
+            buttonMoins.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
+            buttonMoins.innerHTML = "-";
+            buttonMoins.setAttribute("onclick", "if(document.getElementById('"+batterie.id+"quantity').value > 1){document.getElementById('"+batterie.id+"quantity').value = document.getElementById('"+batterie.id+"quantity').value - 1;}else{document.getElementById('"+batterie.id+"quantity').value = 1;}console.log(document.getElementById('"+batterie.id+"quantity').value);");
+        }
+
+        {var buttonPlus = document.createElement("button");
+            buttonPlus.setAttribute("type", "button");
+            buttonPlus.setAttribute("class", "btn btn-primary");
+            buttonPlus.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px; display: block;");
+            buttonPlus.innerHTML = "+";
+            buttonPlus.setAttribute("onclick", "if(document.getElementById('"+batterie.id+"quantity').value < 5 ){document.getElementById('"+batterie.id+"quantity').value++;}else{document.getElementById('"+batterie.id+"quantity').value = 5;}console.log(document.getElementById('"+batterie.id+"quantity').value);" );
+        }
+
+        {var buttonStock = document.createElement("button");
             buttonStock.setAttribute("type", "button");
             buttonStock.setAttribute("class", "btn btn-primary");
             buttonStock.setAttribute("style", "margin-top: 10px; margin-bottom: 30px;");
@@ -595,9 +754,25 @@ function batterieChilds() {
             //on hover on the button, show stock
             buttonStock.setAttribute("onmouseover", "this.innerHTML = 'Stock : "+batterie.Stock+"';");
             buttonStock.setAttribute("onmouseout", "this.innerHTML = 'Voir le stock';");
+        }
 
-    
+        {var ligneDeBouttons = document.createElement("div");
+            ligneDeBouttons.setAttribute("style", "display: flex; flex-direction: row; justify-content: center; align-items: center; ");
+            ligneDeBouttons.appendChild(buttonMoins);
+            ligneDeBouttons.appendChild(quantityInput);
+            ligneDeBouttons.appendChild(buttonPlus);
+        }            
 
+
+        {var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-primary");
+            button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
+            button.innerHTML = "Ajouter au panier";
+            button.setAttribute("onclick", "if((document.getElementById('"+batterie.id+"quantity').value) == ''){(document.getElementById('"+batterie.id+"quantity').value) = 1;}console.log(document.getElementById('"+batterie.id+"quantity').value + ' en qty de ' + idToSendForCart);addBatterieToCart(idToSendForCart , document.getElementById('"+batterie.id+"quantity').value)");//mtnt on veut envoyer ces deux donnees dans une fonction qui va récupérer la batterie et la qty en parametres, et l ajouter au tableau d items du panier
+        }
+
+        {
         p2.appendChild(Strong2);
         h4.appendChild(Strong1);
         div3.appendChild(h4);
@@ -605,14 +780,13 @@ function batterieChilds() {
         div3.appendChild(p2);
         div3.appendChild(button);
         div3.appendChild(buttonStock);
+        div3.appendChild(ligneDeBouttons);
         div1.appendChild(div2);
         div1.appendChild(div3);
         container.appendChild(div1);
+        //console.log(div1.id);
+        }
     }
+    cart = cartCleaner(cart);
 }
 
-
-
-
-//now we want to push items to the cart, with quatity selectors, and write into the database
-//we need to create a cart object, and push it to the database
