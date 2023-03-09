@@ -205,59 +205,6 @@ function removeChildren(){
 
 
 
-//fonction qui crée le front du panier ==> A REPRENDRE
-function createCartFront(cart) {
-    removeChildren();
-    cart = cartCleaner(cart);
-    var cartTotal = updateCartTotal(cart);
-    //faire une fonction qui vide l'affichage du panier ==>
-    let cartContainer = document.getElementById("cartContainer");
-    //pour chaque objet du panier, on crée un div avec les infos de l'objet
-    for(let i=0; i<cart.length; i++) {
-        //on veut afficher en une ligne l'image de l'élément du panier, son nom, la qty sélectionnée et son prix
-        let divObject = document.createElement("div");
-            divObject.setAttribute("class", "row");
-            divObject.setAttribute("id", cart[i].id+'DIV');
-            divObject.setAttribute("style", "margin-bottom: 20px;");
-            divObject.setAttribute("style", "border: none; color: black;");
-            console.log(divObject.id);
-            console.log(cart[i].id);
-
-        let div2Object = document.createElement("div");
-            div2Object.setAttribute("class", "col-sm-4"); 
-
-        let imageObject = document.createElement("img");
-            imageObject.setAttribute("src", cart[i].image);
-            imageObject.setAttribute("class", "img-responsive");
-            imageObject.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
-            imageObject.setAttribute("onmouseover", "this.style.transform='scale(1.2)';");
-            imageObject.setAttribute("onmouseout", "this.style.transform='scale(1)';");
-
-        div2Object.appendChild(imageObject);
-
-        let Strong1Object = document.createElement("strong");
-            Strong1Object.innerHTML = cart[i].name;
-
-        let Strong2Object = document.createElement("strong");
-            Strong2Object.innerHTML = cart[i].price+"€";
-
-        let Strong3Object = document.createElement("strong");
-            Strong3Object.innerHTML = "x"+cart[i].qty;
-        
-        let p2Object = document.createElement("p");
-        //console.log(divObject);
-        p2Object.appendChild(Strong1Object);
-        p2Object.appendChild(Strong2Object);
-        p2Object.appendChild(Strong3Object);
-        div2Object.appendChild(p2Object);
-        divObject.appendChild(div2Object);
-        cartContainer.appendChild(divObject);
-        //console.log(cartContainer);
-    }
-    //console.log(cartContainer);
-    //console.log(updateCartTotal(cart));
-
-}
 
 
 
@@ -284,7 +231,7 @@ function addGuitareToCart(id, qty) {
             //on va vérifier si la guitare est déjà présente dans le panier
             if(cart.length == 0) {
                 cart.push(guitareCart);
-                console.log("le panier est vide, on ajoute l elt");
+                //console.log("le panier est vide, on ajoute l elt");
             }
 
             else {                 //sinon, on va vérifier si la guitare est déjà présente dans le panier
@@ -292,10 +239,10 @@ function addGuitareToCart(id, qty) {
                 //console.log(cart.length, id);
                 for(let j=0; j<cart.length; j++) {
                     if(cart[j].id == id && cart[j].qty != guitareCart.qty) {
-                        console.log(id , cart[j].id);
+                        //console.log(id , cart[j].id);
                         //si la guitare est déjà présente dans le panier, on compare les qty et on update la qty dans l'objet du panier sans en rajouter un nouveau
                         cart[j].qty = guitareCart.qty;
-                        console.log("l elt est deja present mais on a changé sa qty");
+                        //console.log("l elt est deja present mais on a changé sa qty");
                     }else if (cart[j].id != id){ //si la guitare n'est pas présente dans le panier, on l'ajoute
                         cart.push(guitareCart);
                     }
@@ -402,8 +349,6 @@ function addBatterieToCart(id , qty){
 
 
 //////////////////////////////////////--SUPPRESSION DES ARTICLES DU PANIER--//////////////////////////////////////
-
-
 function removeFromCartTab(id){
     //console.log(id);
     for(let i=0; i<cart.length; i++) {
@@ -420,6 +365,7 @@ function emptyCart(){
     updateCartTotal(cart);
     cart = cartCleaner(cart);
     console.log("panier vidé");
+    document.getElementById("cartContainer").innerHTML = "Votre panier est vide";
     return cart;
 }
 
@@ -535,25 +481,24 @@ function guitareChilds() {
         }
 
         {
-        p2.appendChild(Strong2);
-        h4.appendChild(Strong1);
-        div3.appendChild(h4);
-        div3.appendChild(p1);
-        div3.appendChild(p2);
-        div3.appendChild(button);
-        div3.appendChild(buttonStock);
-        div3.appendChild(ligneDeBouttons);
-        div1.appendChild(div2);
-        div1.appendChild(div3);
-        container.appendChild(div1);
-        //console.log(div1.id);
-        }
+            p2.appendChild(Strong2);
+            h4.appendChild(Strong1);
+            div3.appendChild(h4);
+            div3.appendChild(p1);
+            div3.appendChild(p2);
+            div3.appendChild(button);
+            div3.appendChild(buttonStock);
+            div3.appendChild(ligneDeBouttons);
+            div1.appendChild(div2);
+            div1.appendChild(div3);
+            container.appendChild(div1);
+            //console.log(div1.id);
+            }
 
     }
 
     cart = cartCleaner(cart);
 }
-
 
 function microChilds() {
     removeChildren();
@@ -683,7 +628,6 @@ function microChilds() {
 
 }
 
-
 function batterieChilds() {
     removeChildren();
     var container = document.getElementById("batteriesContainer");
@@ -810,4 +754,94 @@ function batterieChilds() {
     }
     cart = cartCleaner(cart);
 }
+
+
+
+////////////////////////////////////--GÉNÉRATION HTML DU PANIER--////////////////////////////////////
+//fonction qui crée le front du panier ==> A REPRENDRE
+function createCartFront(cart) {
+    removeChildren();
+    cart = cartCleaner(cart);
+    var cartTotal = updateCartTotal(cart);
+    //faire une fonction qui vide l'affichage du panier ==>
+    let cartContainer = document.getElementById("cartContainer");
+    //pour chaque objet du panier, on crée un div avec les infos de l'objet si le panier est non vide
+    if(cart.length > 0) {
+        for(let i=0; i<cart.length; i++) {
+            //on veut afficher en une ligne l'image de l'élément du panier, son nom, la qty sélectionnée et son prix
+            let divObject = document.createElement("div");
+                divObject.setAttribute("class", "row");
+                divObject.setAttribute("id", cart[i].id+'DIV');
+                divObject.setAttribute("style", "margin-bottom: 50px;");
+                divObject.setAttribute("style", "border: none; color: black;");
+                divObject.setAttribute("onmouseover", "this.style.transform='scale(1.05)';");
+                divObject.setAttribute("onmouseout", "this.style.transform='scale(1)';");
+
+            let div2Object = document.createElement("div");
+                div2Object.setAttribute("class", "col-sm-4"); 
+
+            let imageObject = document.createElement("img");
+                imageObject.setAttribute("src", cart[i].image);
+                imageObject.setAttribute("class", "img-responsive");
+                imageObject.setAttribute("style", "width:100%; object-fit: contain; max-height: 150px;");
+            div2Object.appendChild(imageObject);
+
+            let div3Object = document.createElement("div");
+                div3Object.setAttribute("class", "col-sm-8");
+                div3Object.setAttribute("id", cart[i].id+"div3");
+
+
+            let h4 = document.createElement("h4");
+
+            let Strong1Object = document.createElement("strong");
+                Strong1Object.innerHTML = "Produit: "+cart[i].name+" ";
+
+            let Strong2Object = document.createElement("strong");
+                Strong2Object.innerHTML = "Prix Unitaire: "+cart[i].price+"€ ";
+
+            let Strong3Object = document.createElement("strong");
+                Strong3Object.innerHTML = "Quantité sélectionnée: x"+cart[i].qty;
+
+            let p2Object = document.createElement("p");
+                p2Object.appendChild(Strong2Object);
+        
+            var removalButton = document.createElement("button");
+                removalButton.setAttribute("class", "btn btn-danger");
+                removalButton.setAttribute("id", cart[i].id+"removalButton");
+                removalButton.setAttribute("onclick", "removeFromCart("+cart[i].id+")");
+                removalButton.innerHTML = "Supprimer du panier";
+
+            {
+                p2Object.appendChild(Strong2Object);
+                div3Object.appendChild(Strong1Object);
+                div3Object.appendChild(h4);
+                div3Object.appendChild(p2Object);
+                div3Object.appendChild(Strong3Object);
+                div3Object.appendChild(h4);
+                div3Object.appendChild(document.createElement("br"));
+                div3Object.appendChild(document.createElement("br"));
+                div3Object.appendChild(document.createElement("br"));
+                div3Object.appendChild(removalButton);
+                divObject.appendChild(div2Object);
+                divObject.appendChild(div3Object);
+                divObject.appendChild(h4);
+                cartContainer.appendChild(divObject);
+                cartContainer.appendChild(document.createElement("hr"));
+                //console.log(div1.id);
+            }
+            //bouton pour vider le panier
+            let emptyCartButton = document.createElement("button");
+                emptyCartButton.setAttribute("class", "btn btn-danger");
+                emptyCartButton.setAttribute("id", "emptyCartButton");
+                emptyCartButton.setAttribute("onclick", "emptyCart()");
+                emptyCartButton.innerHTML = "Vider le panier";
+            cartContainer.appendChild(emptyCartButton);
+        }
+    } else {
+        let emptyCartMessage = document.createElement("p");
+            emptyCartMessage.innerHTML = "Votre panier est vide";
+        cartContainer.appendChild(emptyCartMessage);
+    }
+}
+
 
