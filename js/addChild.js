@@ -410,7 +410,7 @@ function removeFromCartTab(id){
         if(cart[i].id == id) {
             console.log("l'élément du tableau à supprimer est: " , cart[i]);
             cart.splice(i, 1);
-        }
+        } 
     }
     return cart;
 }
