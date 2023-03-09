@@ -171,7 +171,7 @@ function cartCleaner(cart) {
     //console.log(cart);
     //update cartTotal
     cartTotal = updateCartTotal(cart);
-    console.log(cartTotal);
+    //console.log(cartTotal);
     return cart;
 }
 
@@ -217,9 +217,11 @@ function createCartFront(cart) {
         //on veut afficher en une ligne l'image de l'élément du panier, son nom, la qty sélectionnée et son prix
         let divObject = document.createElement("div");
             divObject.setAttribute("class", "row");
-            divObject.setAttribute("id", cart[i].id);
+            divObject.setAttribute("id", cart[i].id+'DIV');
             divObject.setAttribute("style", "margin-bottom: 20px;");
             divObject.setAttribute("style", "border: none; color: black;");
+            console.log(divObject.id);
+            console.log(cart[i].id);
 
         let div2Object = document.createElement("div");
             div2Object.setAttribute("class", "col-sm-4"); 
@@ -252,8 +254,8 @@ function createCartFront(cart) {
         cartContainer.appendChild(divObject);
         //console.log(cartContainer);
     }
-    console.log(cartContainer);
-    console.log(updateCartTotal(cart));
+    //console.log(cartContainer);
+    //console.log(updateCartTotal(cart));
 
 }
 
@@ -399,8 +401,27 @@ function addBatterieToCart(id , qty){
 }
 
 
+//////////////////////////////////////--SUPPRESSION DES ARTICLES DU PANIER--//////////////////////////////////////
 
 
+function removeFromCartTab(id){
+    //console.log(id);
+    for(let i=0; i<cart.length; i++) {
+        if(cart[i].id == id) {
+            console.log("l'élément du tableau à supprimer est: " , cart[i]);
+            cart.splice(i, 1);
+        }
+    }
+    return cart;
+}
+
+function emptyCart(){
+    cart = [];
+    updateCartTotal(cart);
+    cart = cartCleaner(cart);
+    console.log("panier vidé");
+    return cart;
+}
 
 
 //////////////////////////////////////--GÉNÉRATION DES HTML DES PRODUITS + INTERACTIONS--//////////////////////////////////////
