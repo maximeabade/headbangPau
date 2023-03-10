@@ -209,18 +209,6 @@ function removeChildren(){
 
 
 ///////////////////////////////////////--AJOUTS AU PANIER--///////////////////////////////////////
-//animation de l objet qui se déplace dans le panier
-function animateAddToCart(id) {
-    //on veut que l'objet glisse legerement vers la droite pour afficher le message "ajouté au panier"
-    //on va donc récupérer la position de l'objet
-    var imgToSlideByHalf = document.getElementById(id+"img");
-    var position = imgToSlideByHalf.getBoundingClientRect();
-    console.log(document.getElementById(id+"img"));
-    console.log(position);
-    //TO CONTINUE...
-}
-
-
 //fonction addGuitareToCart(id, qty)
 function addGuitareToCart(id, qty) {
     cartCleaner(cart);
@@ -264,10 +252,32 @@ function addGuitareToCart(id, qty) {
         }
     }
     //console.log(cartTotal);
-    animateAddToCart(id);
+
+    // create and show popup
+    var popup = document.createElement("div");
+    popup.setAttribute("class", "popup");
+    popup.setAttribute("style", "background-color: green; color: white; padding: 10px; border-radius: 5px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; font-size: 16px;");
+    popup.innerHTML = "L'objet a été ajouté au panier";
+
+    document.body.appendChild(popup);
+
+    // close popup after 2 seconds and on click
+    popup.onclick = function() {
+        popup.parentNode.removeChild(popup);
+    };
+
+    setTimeout(function() {
+        if(popup){
+            popup.parentNode.removeChild(popup);
+        }
+    }, 1000);
+
+
+
     cart = cartCleaner(cart);
     //console.log(cart);
 }
+
 //fonction addMicroToCart(id, qty)
 function addMicroToCart(id, qty) {
     cartCleaner(cart);
@@ -310,20 +320,43 @@ function addMicroToCart(id, qty) {
             //console.log(cart);
         }
     }
+    // create and show popup
+    var popup = document.createElement("div");
+    popup.setAttribute("class", "popup");
+    popup.setAttribute("style", "background-color: green; color: white; padding: 10px; border-radius: 5px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; font-size: 16px;");
+    popup.innerHTML = "L'objet a été ajouté au panier";
+
+    document.body.appendChild(popup);
+
+    // close popup after 2 seconds and on click
+
+    popup.onclick = function() {
+        popup.parentNode.removeChild(popup);
+    };
+
+    setTimeout(function() {
+        if(popup){
+            popup.parentNode.removeChild(popup);
+        }
+    }, 1000);
+
+
+
+    cart = cartCleaner(cart);
     //actualiser le total du panier
 
     cart = cartCleaner(cart);
 }
 //fonction addBatterieToCart(id, qty)
-function addBatterieToCart(id , qty){
+function addBatterieToCart(id, qty) {
     cartCleaner(cart);
     //console.log(id);
     //console.log(qty);
-    //on va chercher la guitare en fonction de l'id
+    //on va chercher la batterie en fonction de l'id
     for(let i=0; i<batteriesTabObject.length; i++) {
         if(batteriesTabObject[i].id == id) {
-            //console.log(guitaresTabObject[i]);
-            //on crée un objet guitare qui contient les infos de la guitare
+            //console.log(batteriesTabObject[i]);
+            //on crée un objet batterie qui contient les infos de la batterie
             var batterieCart = {
                 "id": batteriesTabObject[i].id,
                 "name": batteriesTabObject[i].Name,
@@ -331,34 +364,61 @@ function addBatterieToCart(id , qty){
                 "price": batteriesTabObject[i].Price,
                 "qty": qty
             }
-           // console.log(guitareCart.id , id);
+            //console.log(batterieCart.id , id);
             
-            //on va vérifier si la guitare est déjà présente dans le panier
+            //on va vérifier si la batterie est déjà présente dans le panier
             if(cart.length == 0) {
                 cart.push(batterieCart);
-                console.log("le panier est vide, on ajoute l elt");
-            }
-
-            else {                 //sinon, on va vérifier si la guitare est déjà présente dans le panier
-                //pour chaque objet du panier(boucle sur j), on compare l'id de l'objet avec l'id de la guitare, qui est le meme que celui rentré en paramètre
+                //console.log("le panier est vide, on ajoute l elt");
+            } else {                 //sinon, on va vérifier si la batterie est déjà présente dans le panier
+                //pour chaque objet du panier(boucle sur j), on compare l'id de l'objet avec l'id de la batterie, qui est le meme que celui rentré en paramètre
                 //console.log(cart.length, id);
+                let found = false;
                 for(let j=0; j<cart.length; j++) {
                     if(cart[j].id == id && cart[j].qty != batterieCart.qty) {
-                        console.log(id , cart[j].id);
-                        //si la guitare est déjà présente dans le panier, on compare les qty et on update la qty dans l'objet du panier sans en rajouter un nouveau
+                        //console.log(id , cart[j].id);
+                        //si la batterie est déjà présente dans le panier, on compare les qty et on update la qty dans l'objet du panier sans en rajouter un nouveau
                         cart[j].qty = batterieCart.qty;
-                        console.log("l elt est deja present mais on a changé sa qty");
-                    }else if (cart[j].id != id){ //si la guitare n'est pas présente dans le panier, on l'ajoute
-                        cart.push(batterieCart);
+                        //console.log("l elt est deja present mais on a changé sa qty");
+                        found = true;
+                        break;
+                    } else if (cart[j].id == id) {
+                        found = true;
+                        break;
                     }
+                }
+                if (!found) { //si la batterie n'est pas présente dans le panier, on l'ajoute
+                    cart.push(batterieCart);
                 }
             }
             //console.log(cart);
         }
     }
-    //actualiser le total du panier
 
+    // create and show popup
+    var popup = document.createElement("div");
+    popup.setAttribute("class", "popup");
+    popup.setAttribute("style", "background-color: green; color: white; padding: 10px; border-radius: 5px; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 9999; font-size: 16px;");
+    popup.innerHTML = "L'objet a été ajouté au panier";
+
+    document.body.appendChild(popup);
+
+    // close popup after 2 seconds and on click
+
+    popup.onclick = function() {
+        popup.parentNode.removeChild(popup);
+    };
+
+    setTimeout(function() {
+        if(popup){
+            popup.parentNode.removeChild(popup);
+        }
+    }, 1000);
+
+    //actualiser le total du panier
+    cart = cartCleaner(cart);
 }
+
 
 
 //////////////////////////////////////--SUPPRESSION DES ARTICLES DU PANIER--//////////////////////////////////////
@@ -401,6 +461,7 @@ function guitareChilds() {
         //console.log(tableauDesId);
 
         var guitare = guitaresTabObject[i];
+
         var div1 = document.createElement("div");
             div1.setAttribute("class", "row");
             div1.setAttribute("style", "margin-bottom: 20px;");
@@ -408,6 +469,14 @@ function guitareChilds() {
             div1.setAttribute("id", guitare.id);
             //on hover, get id of the guitare
             div1.setAttribute("onmouseover", "idToSendForCart = this.id;");
+
+        var popUpAddedToCart = document.createElement("div");
+            popUpAddedToCart.setAttribute("class", "alert alert-success alert-dismissible");
+            popUpAddedToCart.setAttribute("style", "position: fixed; display: none;");
+            popUpAddedToCart.setAttribute("onclick", "this.style.display='none';");           
+            popUpAddedToCart.setAttribute("id", "popUpAddedToCart"+id);
+            popUpAddedToCart.innerHTML = "L'article a été ajouté au panier";
+
         
         var div2 = document.createElement("div");
             div2.setAttribute("class", "col-sm-4");    
@@ -497,9 +566,9 @@ function guitareChilds() {
             button.setAttribute("class", "btn btn-primary");
             button.setAttribute("style", "margin-top: 10px; margin-bottom: 30px; margin-right: 10px;");
             button.innerHTML = "Ajouter au panier";
-            button.setAttribute("onclick", "if((document.getElementById('"+guitare.id+"quantity').value) == ''){(document.getElementById('"+guitare.id+"quantity').value) = 1;}console.log(document.getElementById('"+guitare.id+"quantity').value + ' en qty de ' + idToSendForCart);addGuitareToCart(idToSendForCart , document.getElementById('"+guitare.id+"quantity').value)");//mtnt on veut envoyer ces deux donnees dans une fonction qui va récupérer la guitare et la qty en parametres, et l ajouter au tableau d items du panier
+            button.setAttribute("onclick", "if((document.getElementById('"+guitare.id+"quantity').value) == ''){(document.getElementById('"+guitare.id+"quantity').value) = 1;}addGuitareToCart(idToSendForCart , document.getElementById('"+guitare.id+"quantity').value);");//mtnt on veut envoyer ces deux donnees dans une fonction qui va récupérer la guitare et la qty en parametres, et l ajouter au tableau d items du panier
         }
-
+        
         {
             p2.appendChild(Strong2);
             h4.appendChild(Strong1);
@@ -509,6 +578,7 @@ function guitareChilds() {
             div3.appendChild(button);
             div3.appendChild(buttonStock);
             div3.appendChild(ligneDeBouttons);
+            div2.appendChild(popUpAddedToCart);
             div1.appendChild(div2);
             div1.appendChild(div3);
             container.appendChild(div1);
